@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday Isha! 🌸</title>
+    <title>Happy Birthday Isha! 🌷</title>
     <style>
         :root { --pink: #ffb7b2; --cream: #fff9f0; --gray: #6d6875; }
         body { margin: 0; padding: 0; background: var(--cream); font-family: sans-serif; color: var(--gray); text-align: center; }
         
-        /* Act 1: The Ritual */
+        /* Part 1: The Ritual */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         #giant-cake { font-size: 100px; cursor: pointer; margin: 20px; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; }
         #giant-cake:active { transform: scale(1.2); }
         
-        /* Act 2: The Game */
+        /* Part 2: The Game */
         .game-area { padding: 40px 0; background: white; border-top: 1px solid #eee; min-height: 450px; }
         canvas { background: #fff; display: block; margin: 0 auto; border-radius: 10px; border: 1px solid #ddd; touch-action: none; }
         #status { height: 30px; font-weight: bold; color: #ff8b94; margin: 15px; font-style: italic; }
         
-        /* Act 3: The Reveal */
+        /* Part 3: The Reveal */
         #secret { display: none; padding: 30px 20px; animation: fadeIn 1s; }
         .box { background: #fff; padding: 20px; border-radius: 15px; max-width: 340px; margin: 0 auto; border: 1px solid var(--pink); text-align: left; line-height: 1.6; }
         .btn { background: var(--pink); color: white; border: none; padding: 15px 30px; border-radius: 30px; margin-top: 20px; cursor: pointer; font-weight: bold; font-size: 1rem; }
@@ -40,7 +40,7 @@
 
     <div class="game-area">
         <div id="stats" style="font-weight:bold; color:var(--pink);">Treats Collected: 0</div>
-        <div id="status">Catch 5 treats to unlock your note!</div>
+        <div id="status">Let's play a game, catch 5 treats to unlock a surprise 😉</div>
         <canvas id="canvas"></canvas>
     </div>
 
