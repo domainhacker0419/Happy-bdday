@@ -44,11 +44,10 @@
         <canvas id="canvas"></canvas>
     </div>
 
-        <div id="secret" style="display: none;">
+            <div id="secret" style="display: none;">
         <div class="box">
-            <p id="note"></p>
-            <p id="note"></p>
-<button id="skip-btn" style="display:none; background:none; border:none; color:var(--pink); cursor:pointer; font-size:0.8rem; text-decoration:underline; margin-bottom:10px;">Skip typing...</button>
+            <p id="note" style="margin-bottom: 5px;"></p>
+            <button id="skip-btn" style="display:none; background:none; border:none; color:var(--pink); cursor:pointer; font-size:0.8rem; text-decoration:underline; margin-bottom:15px; padding:0; text-align:left;">Skip typing...</button>
             
             <div id="notepad-area" style="display:none; margin-top:20px; border-top: 1px dotted var(--pink); padding-top: 15px;">
                 <p style="font-size: 0.85rem; font-style: italic; opacity: 0.8;">This space is just for you. Write whatever you're feeling...</p>
@@ -155,14 +154,30 @@
 }
 
 
-        function typeWriter(t, i) {
+                function typeWriter(t, i) {
+            const noteEl = document.getElementById("note");
+            const skipBtn = document.getElementById('skip-btn');
+
+            // --- THE MISSING LOGIC ---
+            if (skipTyping === true) {
+                noteEl.innerHTML = t.replace(/\n/g, '<br>'); // Show full text
+                skipBtn.style.display = 'none'; // Hide skip button
+                document.getElementById('v-btn').style.display = 'block';
+                document.getElementById('notepad-area').style.display = 'block';
+                return; // Stop the loop immediately
+            }
+
             if (i < t.length) {
-                document.getElementById("note").innerHTML = t.substring(0, i+1).replace(/\n/g, '<br>');
+                noteEl.innerHTML = t.substring(0, i+1).replace(/\n/g, '<br>');
                 setTimeout(() => typeWriter(t, i+1), 50);
             } else { 
+                // Finished naturally
+                skipBtn.style.display = 'none';
                 document.getElementById('v-btn').style.display = 'block';
                 document.getElementById('notepad-area').style.display = 'block';
             }
+        }
+
         }
 
         function revealSurprise() {
