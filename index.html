@@ -32,9 +32,9 @@
 <body>
 
     <div class="hero">
-        <h1 style="color: #ff8b94;">Happy Birthday, Isha! 🌸</h1>
-        <div id="giant-cake" onclick="this.innerText='✨'; setTimeout(()=>this.innerText='🎂', 1000);">🎂</div>
-        <p>Tap the cake to make a wish</p>
+        <h1 style="color: #ff8b94;">Happy Birthday, Isha! 🌷</h1>
+        <div id="giant-cake" onclick="this.innerText='🥳'; setTimeout(()=>this.innerText='🎂', 1000);">🎂</div>
+        <p>Tap on the cake 🎂</p>
         <p style="font-size: 0.8rem; opacity: 0.4; margin-top: 50px;">↡ Scroll down to play ↡</p>
     </div>
 
@@ -54,7 +54,7 @@
             </video>
             <p style="font-size: 0.75rem; margin-top: 10px; opacity: 0.6;">Is the video a bit blurry?</p>
             <a href="https://drive.google.com/your-hd-video-link-here" target="_blank" class="hd-link">
-                ✨ Watch in Full HD (77MB) ✨
+                ✨ Aree vo site pe size limit hai.. to in caee you wanna download in better quality ✨
             </a>
         </div>
     </div>
@@ -89,7 +89,7 @@
             ctx.clearRect(0,0,cvs.width,cvs.height);
             p.dy += 0.7; p.y += p.dy;
             if (p.y > 170) { p.y = 170; p.g = true; }
-            ctx.font = "35px Arial"; ctx.fillText("✨", p.x, p.y);
+            ctx.font = "35px Arial"; ctx.fillText("🐼", p.x, p.y);
 
             for (let i = items.length - 1; i >= 0; i--) {
                 let it = items[i];
@@ -118,11 +118,12 @@
 
         function updateCommentary(s) {
             const st = document.getElementById('status');
-            if (s == 1) st.innerText = "First one! Nice.";
-            if (s == 3) st.innerText = "Almost there...";
-            if (s == 6) st.innerText = "Wait, nobody told you to stop?";
-            if (s == 10) st.innerText = "Okay, pro gamer mode activated! 🔥";
-            if (s == 20) st.innerText = "Slow down lady! ✋";
+            if (s == 1) st.innerText = "Bhai 5 to collect krne padenge code bnaya mene khelna to padega";
+            if (s == 3) st.innerText = "2 more";
+            if (s == 6) st.innerText = "Bas now you can stop 🛑";
+            if (s == 8) st.innerText = "Bas ri bas thair ja ab thair ja";
+            if (s == 10) st.innerText = "Bhai, rukk ja ab na to game ki difficulty bad jayegi ladle";
+            if (s == 20) st.innerText = "Areee bass karo ab ho gaya mate";
         }
 
         function triggerSpawn() {
