@@ -139,45 +139,41 @@
         cvs.addEventListener('touchstart', (e) => { jump(); e.preventDefault(); }, {passive:false});
         cvs.addEventListener('mousedown', jump);
 
-        function unlock() {
-    if (unlocked) return;
-    unlocked = true;
-    document.getElementById('status').innerText = "Scroll down 👇 Surprised?";
-    document.getElementById('secret').style.display = 'block';
-    
-    // Show the skip button and tell it what to do
-    const skipBtn = document.getElementById('skip-btn');
-    skipBtn.style.display = 'block';
-    skipBtn.onclick = () => { skipTyping = true; };
-    
-    typeWriter(msg, 0);
-}
+                function unlock() {
+            if (unlocked) return;
+            unlocked = true;
+            document.getElementById('status').innerText = "Scroll down 👇 Surprised?";
+            document.getElementById('secret').style.display = 'block';
+            
+            const skipBtn = document.getElementById('skip-btn');
+            if (skipBtn) {
+                skipBtn.style.display = 'block';
+                skipBtn.onclick = () => { skipTyping = true; };
+            }
+            
+            typeWriter(msg, 0);
+        }
 
-
-                function typeWriter(t, i) {
+        function typeWriter(t, i) {
             const noteEl = document.getElementById("note");
             const skipBtn = document.getElementById('skip-btn');
 
-            // --- THE MISSING LOGIC ---
             if (skipTyping === true) {
-                noteEl.innerHTML = t.replace(/\n/g, '<br>'); // Show full text
-                skipBtn.style.display = 'none'; // Hide skip button
+                noteEl.innerHTML = t.replace(/\n/g, '<br>'); 
+                skipBtn.style.display = 'none'; 
                 document.getElementById('v-btn').style.display = 'block';
                 document.getElementById('notepad-area').style.display = 'block';
-                return; // Stop the loop immediately
+                return; 
             }
 
             if (i < t.length) {
                 noteEl.innerHTML = t.substring(0, i+1).replace(/\n/g, '<br>');
                 setTimeout(() => typeWriter(t, i+1), 50);
             } else { 
-                // Finished naturally
-                skipBtn.style.display = 'none';
+                if (skipBtn) skipBtn.style.display = 'none';
                 document.getElementById('v-btn').style.display = 'block';
                 document.getElementById('notepad-area').style.display = 'block';
             }
-        }
-
         }
 
         function revealSurprise() {
@@ -192,11 +188,10 @@
         if (localStorage.getItem('isha_thoughts')) {
             journal.value = localStorage.getItem('isha_thoughts');
         }
-        journal.addEventListener('input', () => {
-            localStorage.setItem('isha_thoughts', journal.value);
-            const now = new Date();
-            document.getElementById('save-status').innerText = "Private draft saved locally at " + now.getHours() + ":" + now.getMinutes().toString().padStart(2, '0');
-        });
-    </script>           
-</body>
-</html>
+        if (journal) {
+            journal.addEventListener('input', () => {
+                localStorage.setItem('isha_thoughts', journal.value);
+                const now = new Date();
+                document.getElementById('save-status').innerText = "Private draft saved locally at " + now.getHours() + ":" + now.getMinutes().toString().padStart(2, '0');
+            });
+        }
