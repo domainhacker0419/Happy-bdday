@@ -47,6 +47,9 @@
         <div id="secret" style="display: none;">
         <div class="box">
             <p id="note"></p>
+            <p id="note"></p>
+<button id="skip-btn" style="display:none; background:none; border:none; color:var(--pink); cursor:pointer; font-size:0.8rem; text-decoration:underline; margin-bottom:10px;">Skip typing...</button>
+            
             <div id="notepad-area" style="display:none; margin-top:20px; border-top: 1px dotted var(--pink); padding-top: 15px;">
                 <p style="font-size: 0.85rem; font-style: italic; opacity: 0.8;">This space is just for you. Write whatever you're feeling...</p>
                 <textarea id="user-journal" placeholder="How is Isha feeling today?..." 
@@ -76,6 +79,8 @@
         let gameSpeed = 3; 
         let spawnRate = 2000;
         let unlocked = false;
+        let skipTyping = false;
+        
 
         window.onscroll = function() {
             if (!gameStarted && window.pageYOffset > 150) {
@@ -136,12 +141,19 @@
         cvs.addEventListener('mousedown', jump);
 
         function unlock() {
-            if (unlocked) return;
-            unlocked = true;
-            document.getElementById('status').innerText = "Scroll down 👇 Surprised?";
-            document.getElementById('secret').style.display = 'block';
-            typeWriter(msg, 0);
-        }
+    if (unlocked) return;
+    unlocked = true;
+    document.getElementById('status').innerText = "Scroll down 👇 Surprised?";
+    document.getElementById('secret').style.display = 'block';
+    
+    // Show the skip button and tell it what to do
+    const skipBtn = document.getElementById('skip-btn');
+    skipBtn.style.display = 'block';
+    skipBtn.onclick = () => { skipTyping = true; };
+    
+    typeWriter(msg, 0);
+}
+
 
         function typeWriter(t, i) {
             if (i < t.length) {
