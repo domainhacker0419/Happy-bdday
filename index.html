@@ -44,28 +44,26 @@
         <canvas id="canvas"></canvas>
     </div>
 
-    <div id="secret">
+        <div id="secret" style="display: none;">
         <div class="box">
-    <p id="note"></p>
-    <div id="notepad-area" style="display:none; margin-top:20px; border-top: 1px dotted var(--pink); padding-top: 15px;">
-        <p style="font-size: 0.85rem; font-style: italic; opacity: 0.8;">This space is just for you. Write down all your feelings Isha...</p>
-        <textarea id="user-journal" placeholder="How is Isha feeling today?..." 
-            style="width: 100%; height: 120px; border-radius: 10px; border: 1px solid var(--pink); padding: 10px; font-family: inherit; font-size: 0.9rem; outline: none; box-sizing: border-box;"></textarea>
-        <p id="save-status" style="font-size: 0.7rem; color: #888; text-align: right; margin-top: 5px;">Draft saved on your device.</p>
-    </div>
-</div>
-<button class="btn" id="v-btn" style="display:none;" onclick="revealSurprise()">Click me🎁</button>
+            <p id="note"></p>
+            <div id="notepad-area" style="display:none; margin-top:20px; border-top: 1px dotted var(--pink); padding-top: 15px;">
+                <p style="font-size: 0.85rem; font-style: italic; opacity: 0.8;">This space is just for you. Write whatever you're feeling...</p>
+                <textarea id="user-journal" placeholder="How is Isha feeling today?..." 
+                    style="width: 100%; height: 120px; border-radius: 10px; border: 1px solid var(--pink); padding: 10px; font-family: inherit; font-size: 0.9rem; outline: none; box-sizing: border-box;"></textarea>
+                <p id="save-status" style="font-size: 0.7rem; color: #888; text-align: right; margin-top: 5px;">Draft saved on your device.</p>
+            </div>
+        </div>
+        <button class="btn" id="v-btn" style="display:none;" onclick="revealSurprise()">Open Your Final Gift 🎁</button>
         
-        <div id="v-wrap">
+        <div id="v-wrap" style="display: none; margin-top: 25px;">
             <video id="vid" controls playsinline style="width:100%; border-radius:12px; border: 2px solid var(--pink);">
                 <source src="https://raw.githubusercontent.com/domainhacker0419/Happy-bdday/main/bday-video.mp4" type="video/mp4">
             </video>
-            <p style="font-size: 0.75rem; margin-top: 10px; opacity: 0.6;">Bhai video quality thik hai na?</p>
-            <a href="https://drive.google.com/your-hd-video-link-here" target="_blank" class="hd-link">
-                ✨ Aree vo site pe size limit hai.. to in case you wanna download in better quality ✨
-            </a>
+            <a href="https://drive.google.com/your-link" target="_blank" class="hd-link">✨ Aree vo site pe size limit hai.. to in case you wanna download in better quality ✨</a>
         </div>
     </div>
+
 
     <script>
         // --- MESSAGE ---
