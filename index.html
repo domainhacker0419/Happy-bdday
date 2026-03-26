@@ -6,40 +6,35 @@
     <title>Happy Birthday Isha!</title>
     <style>
         :root { --pink: #ffb7b2; --cream: #fff9f0; --gray: #6d6875; }
-        body { margin: 0; padding: 0; background: var(--cream); font-family: sans-serif; color: var(--gray); text-align: center; overflow-x: hidden; }
+        body { margin: 0; padding: 0; background: var(--cream); font-family: sans-serif; color: var(--gray); text-align: center; }
         
-        /* Section 1 */
+        /* Hero Section - Keep this Light */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        #giant-cake { 
-            font-size: 120px; cursor: pointer; user-select: none; 
-            -webkit-tap-highlight-color: transparent; margin: 20px; 
-            transition: transform 0.1s ease;
-        }
-        #giant-cake:active { transform: scale(1.4); }
-        #wish-text { height: 20px; color: var(--pink); font-weight: bold; margin-top: 10px; }
+        #giant-cake { font-size: 100px; cursor: pointer; margin: 20px; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; }
+        #giant-cake:active { transform: scale(1.2); }
         
-        /* Section 2 */
-        .game-area { padding: 30px 0; background: white; border-top: 2px solid #eee; }
-        canvas { background: #fff; display: block; margin: 0 auto; border-radius: 15px; border: 1px solid #ddd; touch-action: none; }
-        #status { height: 40px; font-weight: bold; color: #ff8b94; margin: 10px; font-style: italic; }
+        /* Game Section */
+        .game-area { padding: 40px 0; background: white; border-top: 1px solid #eee; min-height: 400px; }
+        canvas { background: #fff; display: block; margin: 0 auto; border-radius: 10px; border: 1px solid #ddd; touch-action: none; }
+        #status { height: 30px; font-weight: bold; color: #ff8b94; margin: 15px; }
 
-        /* Section 3 */
+        /* Secret Message */
         #secret { display: none; padding: 30px 20px; }
-        .box { background: #fff; padding: 25px; border-radius: 20px; max-width: 350px; margin: 0 auto; border: 1px solid var(--pink); text-align: left; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .btn { background: var(--pink); color: white; border: none; padding: 15px 30px; border-radius: 30px; margin-top: 20px; cursor: pointer; font-weight: bold; }
+        .box { background: #fff; padding: 20px; border-radius: 15px; max-width: 320px; margin: 0 auto; border: 1px solid var(--pink); text-align: left; }
+        .btn { background: var(--pink); color: white; border: none; padding: 12px 25px; border-radius: 20px; margin-top: 15px; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="hero">
         <h1 style="color: #ff8b94;">Happy Birthday, Isha! 🌸</h1>
-        <div id="giant-cake" onclick="makeWish()">🎂</div>
-        <div id="wish-text">Tap the cake to make a wish</div>
-        <p style="font-size: 0.8rem; opacity: 0.5; margin-top: 40px;">↡ Scroll down to play ↡</p>
+        <div id="giant-cake" onclick="this.innerText='✨'; setTimeout(()=>this.innerText='🎂', 1000);">🎂</div>
+        <p>Tap the cake to make a wish</p>
+        <p style="font-size: 0.8rem; opacity: 0.5; margin-top: 50px;">↡ Scroll down to play ↡</p>
     </div>
 
-    <div class="game-area">
-        <div id="stats" style="font-weight:bold; color:var(--pink); margin-bottom:5px;">Treats: 0</div>
+    <div class="game-area" id="game-trigger">
+        <div id="stats" style="font-weight:bold; color:var(--pink);">Treats: 0</div>
         <div id="status">Catch 5 treats to unlock!</div>
         <canvas id="canvas"></canvas>
     </div>
@@ -48,7 +43,7 @@
         <div class="box"><p id="note"></p></div>
         <button class="btn" id="v-btn" style="display:none;" onclick="document.getElementById('v-wrap').style.display='block';">Open Final Gift 🎁</button>
         <div id="v-wrap" style="display:none; margin-top:20px;">
-            <video id="vid" controls playsinline style="width:100%; border-radius:15px;">
+            <video id="vid" controls playsinline style="width:100%; border-radius:10px;">
                 <source src="your-video.mp4" type="video/mp4">
             </video>
         </div>
@@ -56,93 +51,67 @@
 
     <script>
         const msg = "Hello Isha...\n\nYou're the most beautiful person I know. Happy Birthday!";
-
-        function makeWish() {
-            const wishText = document.getElementById('wish-text');
-            wishText.innerText = "Wish Sent! ✨";
-            setTimeout(() => { wishText.innerText = "Tap for another wish"; }, 2000);
-        }
-
-        // Game Setup
         const cvs = document.getElementById('canvas');
         const ctx = cvs.getContext('2d');
-        cvs.width = Math.min(window.innerWidth - 40, 350);
-        cvs.height = 250;
+        cvs.width = Math.min(window.innerWidth - 40, 340);
+        cvs.height = 240;
 
-        let p = { x: 40, y: 180, dy: 0, g: true };
+        let p = { x: 40, y: 170, dy: 0, g: true };
         let items = [];
         let score = 0;
-        let unlocked = false;
+        let gameStarted = false;
+
+        // --- LAZY LOAD: ONLY START GAME WHEN SCROLLED TO ---
+        window.onscroll = function() {
+            if (!gameStarted && window.pageYOffset > 200) {
+                gameStarted = true;
+                draw();
+                setInterval(spawn, 2000);
+            }
+        };
 
         function draw() {
             ctx.clearRect(0,0,cvs.width,cvs.height);
-            
-            // Player Physics
-            p.dy += 0.6; p.y += p.dy;
-            if (p.y > 180) { p.y = 180; p.g = true; }
-            ctx.font = "40px Arial"; ctx.fillText("✨", p.x, p.y);
+            p.dy += 0.7; p.y += p.dy;
+            if (p.y > 170) { p.y = 170; p.g = true; }
+            ctx.font = "35px Arial"; ctx.fillText("✨", p.x, p.y);
 
-            // Item Logic
             for (let i = items.length - 1; i >= 0; i--) {
-                let it = items[i];
-                it.x -= 3;
-                ctx.font = "30px Arial"; ctx.fillText(it.t, it.x, it.y);
-
-                // Collision
-                if (Math.abs(p.x - it.x) < 30 && Math.abs(p.y - it.y) < 30) {
-                    if (it.t !== '☁️') {
-                        score++;
-                        items.splice(i, 1);
+                items[i].x -= 3;
+                ctx.fillText(items[i].t, items[i].x, items[i].y);
+                if (Math.abs(p.x - items[i].x) < 30 && Math.abs(p.y - items[i].y) < 30) {
+                    if (items[i].t !== '☁️') {
+                        score++; items.splice(i, 1);
                         document.getElementById('stats').innerText = "Treats: " + score;
-                        updateCommentary(score);
-                    } else {
-                        it.t = '🌸';
-                    }
+                        if(score == 5) unlock();
+                    } else { items[i].t = '🌸'; }
                 }
             }
             items = items.filter(it => it.x > -50);
             requestAnimationFrame(draw);
         }
 
-        function updateCommentary(s) {
-            const st = document.getElementById('status');
-            if (s == 1) st.innerText = "First one! Nice.";
-            if (s == 3) st.innerText = "Almost there...";
-            if (s == 5) unlock();
-            if (s == 10) st.innerText = "Oh, so nobody cares about the message...";
-            if (s == 15) st.innerText = "Pro gamer vibes!";
-            if (s == 25) st.innerText = "Slow down lady! ✋";
-        }
-
         function spawn() {
-            const types = ['🍓', '🥟', '☁️'];
-            const t = types[Math.floor(Math.random() * 3)];
-            items.push({ x: cvs.width, y: Math.random() > 0.5 ? 180 : 100, t: t });
+            const t = ['🍓', '🥟', '☁️'][Math.floor(Math.random() * 3)];
+            items.push({ x: cvs.width, y: Math.random() > 0.5 ? 170 : 90, t: t });
         }
         
-        function jump() { if(p.g) { p.dy = -12; p.g = false; } }
+        function jump() { if(p.g) { p.dy = -13; p.g = false; } }
         cvs.addEventListener('touchstart', (e) => { jump(); e.preventDefault(); }, {passive:false});
         cvs.addEventListener('mousedown', jump);
 
         function unlock() {
-            if (unlocked) return;
-            unlocked = true;
             document.getElementById('status').innerText = "UNLOCKED! Scroll down.";
             document.getElementById('secret').style.display = 'block';
-            typeWriter(msg, 0);
+            type(msg, 0);
         }
 
-        function typeWriter(t, i) {
+        function type(t, i) {
             if (i < t.length) {
-                document.getElementById("note").innerHTML = t.substring(0, i + 1).replace(/\n/g, '<br>');
-                setTimeout(() => typeWriter(t, i + 1), 50);
-            } else {
-                document.getElementById('v-btn').style.display = 'block';
-            }
+                document.getElementById("note").innerHTML = t.substring(0, i+1).replace(/\n/g, '<br>');
+                setTimeout(() => type(t, i+1), 50);
+            } else { document.getElementById('v-btn').style.display='block'; }
         }
-
-        setInterval(spawn, 2000);
-        draw();
     </script>
 </body>
 </html>
