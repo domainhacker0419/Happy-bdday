@@ -7,21 +7,15 @@
     <style>
         :root { --pink: #ffb7b2; --cream: #fff9f0; --gray: #6d6875; }
         body { margin: 0; padding: 0; background: var(--cream); font-family: sans-serif; color: var(--gray); text-align: center; }
-        
-        /* Hero Section - Keep this Light */
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         #giant-cake { font-size: 100px; cursor: pointer; margin: 20px; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; }
         #giant-cake:active { transform: scale(1.2); }
-        
-        /* Game Section */
-        .game-area { padding: 40px 0; background: white; border-top: 1px solid #eee; min-height: 400px; }
+        .game-area { padding: 40px 0; background: white; border-top: 1px solid #eee; min-height: 450px; }
         canvas { background: #fff; display: block; margin: 0 auto; border-radius: 10px; border: 1px solid #ddd; touch-action: none; }
-        #status { height: 30px; font-weight: bold; color: #ff8b94; margin: 15px; }
-
-        /* Secret Message */
+        #status { height: 30px; font-weight: bold; color: #ff8b94; margin: 15px; font-style: italic; }
         #secret { display: none; padding: 30px 20px; }
         .box { background: #fff; padding: 20px; border-radius: 15px; max-width: 320px; margin: 0 auto; border: 1px solid var(--pink); text-align: left; }
-        .btn { background: var(--pink); color: white; border: none; padding: 12px 25px; border-radius: 20px; margin-top: 15px; cursor: pointer; }
+        .btn { background: var(--pink); color: white; border: none; padding: 12px 25px; border-radius: 20px; margin-top: 15px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -33,8 +27,8 @@
         <p style="font-size: 0.8rem; opacity: 0.5; margin-top: 50px;">↡ Scroll down to play ↡</p>
     </div>
 
-    <div class="game-area" id="game-trigger">
-        <div id="stats" style="font-weight:bold; color:var(--pink);">Treats: 0</div>
+    <div class="game-area">
+        <div id="stats" style="font-weight:bold; color:var(--pink);">Treats Collected: 0</div>
         <div id="status">Catch 5 treats to unlock!</div>
         <canvas id="canvas"></canvas>
     </div>
@@ -60,13 +54,14 @@
         let items = [];
         let score = 0;
         let gameStarted = false;
+        let gameSpeed = 3; // Starting speed
+        let spawnRate = 2000; // Starting spawn time
 
-        // --- LAZY LOAD: ONLY START GAME WHEN SCROLLED TO ---
         window.onscroll = function() {
             if (!gameStarted && window.pageYOffset > 200) {
                 gameStarted = true;
                 draw();
-                setInterval(spawn, 2000);
+                triggerSpawn();
             }
         };
 
@@ -77,23 +72,51 @@
             ctx.font = "35px Arial"; ctx.fillText("✨", p.x, p.y);
 
             for (let i = items.length - 1; i >= 0; i--) {
-                items[i].x -= 3;
-                ctx.fillText(items[i].t, items[i].x, items[i].y);
-                if (Math.abs(p.x - items[i].x) < 30 && Math.abs(p.y - items[i].y) < 30) {
-                    if (items[i].t !== '☁️') {
-                        score++; items.splice(i, 1);
-                        document.getElementById('stats').innerText = "Treats: " + score;
+                let it = items[i];
+                it.x -= gameSpeed;
+                ctx.fillText(it.t, it.x, it.y);
+
+                if (Math.abs(p.x - it.x) < 30 && Math.abs(p.y - it.y) < 30) {
+                    if (it.t === '🍓' || it.t === '🥟') {
+                        // IT'S A TREAT
+                        score++;
+                        items.splice(i, 1);
+                        document.getElementById('stats').innerText = "Treats Collected: " + score;
+                        updateCommentary(score);
                         if(score == 5) unlock();
-                    } else { items[i].t = '🌸'; }
+                        
+                        // INCREASE DIFFICULTY
+                        gameSpeed += 0.2; 
+                        spawnRate = Math.max(800, spawnRate - 100);
+                    } else if (it.t === '☁️') {
+                        // IT'S A CLOUD (DO NOT ADD TO SCORE)
+                        it.t = '🌷'; 
+                    }
                 }
             }
             items = items.filter(it => it.x > -50);
             requestAnimationFrame(draw);
         }
 
-        function spawn() {
-            const t = ['🍓', '🥟', '☁️'][Math.floor(Math.random() * 3)];
-            items.push({ x: cvs.width, y: Math.random() > 0.5 ? 170 : 90, t: t });
+        function updateCommentary(s) {
+            const st = document.getElementById('status');
+            if (s == 1) st.innerText = "First one! Nice.";
+            if (s == 3) st.innerText = "Almost there...";
+            if (s == 6) st.innerText = "Wait, nobody told you to stop?";
+            if (s == 10) st.innerText = "Okay, pro gamer mode activated! 🔥";
+            if (s == 15) st.innerText = "Slow down lady! ✋";
+            if (s == 20) st.innerText = "Seriously? You're a legend.";
+        }
+
+        function triggerSpawn() {
+            if (!gameStarted) return;
+            const rand = Math.random();
+            // Higher score = More clouds (obstacles)
+            const obstacleChance = score > 10 ? 0.6 : 0.3; 
+            const type = Math.random() < obstacleChance ? '☁️' : (Math.random() > 0.5 ? '🍓' : '🥟');
+            
+            items.push({ x: cvs.width, y: type === '☁️' ? 170 : 80 + Math.random()*80, t: type });
+            setTimeout(triggerSpawn, spawnRate);
         }
         
         function jump() { if(p.g) { p.dy = -13; p.g = false; } }
