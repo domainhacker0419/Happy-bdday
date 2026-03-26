@@ -3,52 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday!</title>
+    <title>Happy Birthday Isha! ✨</title>
     <style>
         :root { --soft-pink: #ffb7b2; --soft-cream: #fff9f0; --text: #6d6875; }
         body { margin: 0; padding: 0; background: var(--soft-cream); font-family: 'Segoe UI', sans-serif; color: var(--text); text-align: center; overflow-x: hidden; }
 
-        /* Act 1: The Giant Interactive Cake */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        /* Act 1: The Birthday Header */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; }
+        h1 { font-size: 2.2rem; color: #ff8b94; margin-bottom: 5px; }
+        
         #giant-cake { 
-            font-size: 120px; cursor: pointer; transition: transform 0.2s; 
+            font-size: 130px; cursor: pointer; transition: transform 0.1s; 
             user-select: none; -webkit-tap-highlight-color: transparent;
+            margin: 20px 0;
         }
-        #giant-cake:active { transform: scale(1.3) rotate(5deg); }
-        .hint { margin-top: 20px; font-size: 0.9rem; opacity: 0.5; }
+        #giant-cake:active { transform: scale(0.9); }
 
-        /* Act 2: The Dino-style Game */
+        /* Act 2: The Game */
         .game-section { padding: 40px 0; background: white; border-top: 2px solid #fdf2f2; }
-        #gameCanvas { background: #fff; display: block; margin: 0 auto; border-radius: 15px; touch-action: none; cursor: pointer; }
-        #commentary { height: 40px; font-weight: bold; color: #ff8b94; margin: 10px 0; font-style: italic; font-size: 1.1rem; }
+        #gameCanvas { background: #fff; display: block; margin: 0 auto; border-radius: 15px; touch-action: none; cursor: pointer; border: 1px solid #eee; }
+        #commentary { height: 45px; font-weight: bold; color: #ff8b94; margin: 15px 0; font-style: italic; font-size: 1.1rem; padding: 0 10px; }
         #score-stats { font-size: 1rem; margin-bottom: 10px; color: var(--soft-pink); font-weight: bold; }
 
-        /* Act 3: The Secret Reveal */
+        /* Act 3: The Message */
         #secret-area { display: none; padding: 40px 20px; animation: fadeIn 1s; }
-        .message-box { background: #fff; padding: 25px; border-radius: 20px; max-width: 400px; margin: 0 auto; border: 1.5px solid var(--soft-pink); text-align: left; }
-        .btn { background: var(--soft-pink); color: white; border: none; padding: 15px 30px; border-radius: 30px; margin-top: 20px; cursor: pointer; }
+        .message-box { background: #fff; padding: 25px; border-radius: 20px; max-width: 400px; margin: 0 auto; border: 1.5px solid var(--soft-pink); text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .btn { background: var(--soft-pink); color: white; border: none; padding: 15px 30px; border-radius: 30px; margin-top: 20px; cursor: pointer; font-weight: bold; }
+
+        /* Confetti Particles */
+        .confetti { position: absolute; width: 10px; height: 10px; pointer-events: none; z-index: 1000; }
 
         @keyframes fadeIn { from {opacity:0} to {opacity:1} }
+        @keyframes fall { to { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
     </style>
 </head>
 <body>
 
     <div class="hero">
-        <div id="giant-cake" onclick="cakePop()">🎂</div>
-        <h1 style="color: #ff8b94;">Tap the cake!</h1>
-        <p>Then scroll down for the real challenge...</p>
-        <div class="hint">↡ Scroll for the Dino-Mode ↡</div>
+        <h1>Happy Birthday, Isha! 🌸</h1>
+        <div id="giant-cake" onclick="cakePop(event)">🎂</div>
+        <p style="opacity: 0.7;">Tap the cake for a wish...</p>
+        <div style="margin-top: 40px; font-size: 0.8rem; opacity: 0.4;">↡ Scroll down for your challenge ↡</div>
     </div>
 
     <div class="game-section">
-        <div id="score-stats">Strawberries & Momos: 0 | Vibes Healed: 0</div>
-        <div id="commentary">Catch 5 to unlock your message!</div>
+        <div id="score-stats">Treats: 0 | Vibes Healed: 0</div>
+        <div id="commentary">Catch 5 treats to unlock your note!</div>
         <canvas id="gameCanvas"></canvas>
     </div>
 
     <div id="secret-area">
         <div class="message-box"><p id="personal-note"></p></div>
-        <button class="btn" id="reveal-btn" style="display:none;" onclick="showFinal()">See Your Final Gift 🎁</button>
+        <button class="btn" id="reveal-btn" style="display:none;" onclick="showFinal()">Open Your Final Gift 🎁</button>
         <div id="video-wrap" style="display:none; margin-top:20px;">
             <video id="bdayVid" controls playsinline style="width:100%; max-width:320px; border-radius:15px;">
                 <source src="your-video.mp4" type="video/mp4">
@@ -56,13 +62,28 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
-        const myMessage = "Hello Isha...\n\nYou're the most beautiful person I know.\nI hope this little game made you smile.";
+        const myMessage = "Hello Isha...\n\nYou're the most beautiful person I know.\nI hope this little game made you smile. Happy Birthday!";
         
-        // --- GIANT CAKE LOGIC ---
-        function cakePop() {
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.3 }, colors: ['#ffb7b2', '#ffdac1', '#e2f0cb'] });
+        // --- BUILT-IN CONFETTI (No external links needed) ---
+        function cakePop(e) {
+            for (let i = 0; i < 30; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = e.clientX + 'px';
+                conf.style.top = e.clientY + 'px';
+                conf.style.backgroundColor = ['#ffb7b2', '#ff8b94', '#ffd1dc', '#fff9f0'][Math.floor(Math.random()*4)];
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '0%';
+                document.body.appendChild(conf);
+                
+                const destinationX = (Math.random() - 0.5) * 300;
+                const destinationY = (Math.random() - 0.5) * 300;
+                
+                conf.animate([
+                    { transform: 'translate(0, 0) rotate(0deg)', opacity: 1 },
+                    { transform: `translate(${destinationX}px, ${destinationY}px) rotate(360deg)`, opacity: 0 }
+                ], { duration: 1000 + Math.random() * 1000, easing: 'ease-out' }).onfinish = () => conf.remove();
+            }
         }
 
         // --- GAME ENGINE ---
@@ -95,7 +116,11 @@
         function update() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Player (Dino Style)
+            // Ground Line
+            ctx.beginPath();
+            ctx.moveTo(0, 220); ctx.lineTo(canvas.width, 220);
+            ctx.strokeStyle = '#eee'; ctx.stroke();
+
             player.dy += 0.6;
             player.y += player.dy;
             if (player.y > 180) { player.y = 180; player.grounded = true; }
@@ -114,13 +139,13 @@
                         const msg = getCommentary(score);
                         if(msg) document.getElementById('commentary').innerText = msg;
                         if(score === 5) unlockSecret();
-                        if(score > 20) gameSpeed += 0.1; // Speed up!
+                        if(score > 20) gameSpeed += 0.05; 
                     } else if (item.type === '☁️') {
-                        item.type = '🌸'; // Heal vibe
+                        item.type = '🌸'; 
                         vibesHealed++;
                     }
                 }
-                document.getElementById('score-stats').innerText = `Strawberries & Momos: ${score} | Vibes Healed: ${vibesHealed}`;
+                document.getElementById('score-stats').innerText = `Treats: ${score} | Vibes Healed: ${vibesHealed}`;
             });
 
             items = items.filter(i => i.x > -50);
@@ -130,7 +155,7 @@
         function spawn() {
             const rand = Math.random();
             let type = rand > 0.6 ? '🍓' : (rand > 0.3 ? '🥟' : '☁️');
-            items.push({ x: canvas.width, y: (type === '☁️' ? 180 : 100 + Math.random()*50), type: type });
+            items.push({ x: canvas.width, y: (type === '☁️' ? 180 : 80 + Math.random()*80), type: type });
         }
 
         function jump() { if(player.grounded) { player.dy = -12; player.grounded = false; } }
@@ -147,7 +172,7 @@
         function typeWriter(text, i) {
             if (i < text.length) {
                 document.getElementById("personal-note").innerHTML = text.substring(0, i + 1).replace(/\n/g, '<br>');
-                setTimeout(() => typeWriter(text, i + 1), 60);
+                setTimeout(() => typeWriter(text, i + 1), 50);
             } else { document.getElementById('reveal-btn').style.display = 'block'; }
         }
 
@@ -157,7 +182,7 @@
             document.getElementById('video-wrap').scrollIntoView({behavior:'smooth'});
         }
 
-        setInterval(spawn, 1500);
+        setInterval(spawn, 1600);
         update();
     </script>
 </body>
