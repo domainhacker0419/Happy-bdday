@@ -3,207 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For Isha ✨</title>
+    <title>Happy Birthday!</title>
     <style>
         :root {
-            --midnight: #0a0a0c;
-            --spring-sky: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
-            --gold: #d4af37;
-            --soft-white: #f8f9fa;
+            --soft-pink: #ffb7b2;
+            --soft-cream: #fff9f0; /* Soothing off-white */
+            --text-color: #6d6875;
         }
 
-        body, html {
-            margin: 0; padding: 0; width: 100%; height: 100%;
-            font-family: 'serif', 'Segoe UI', serif;
-            background-color: var(--midnight);
-            color: var(--soft-white);
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--soft-cream);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            text-align: center;
             overflow-x: hidden;
-            transition: background 3s ease;
         }
 
-        /* ACT 1: THE DARK RITUAL */
-        #ritual-layer {
-            height: 100vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; z-index: 100;
-            position: relative; transition: opacity 2s ease;
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        .cake-container { font-size: 80px; position: relative; cursor: pointer; }
-        .candles {
-            position: absolute; top: -40px; width: 100%;
-            display: flex; justify-content: center; gap: 10px;
-        }
-        .candle { font-size: 30px; transition: transform 0.3s; cursor: pointer; }
-        .extinguished { filter: grayscale(1) opacity(0.3); transform: translateY(10px); pointer-events: none; }
+        h1 { font-size: 2.5rem; color: #ff8b94; margin-bottom: 10px; }
+        .scroll-down { margin-top: 20px; font-size: 0.9rem; opacity: 0.6; animation: bounce 2s infinite; }
 
-        /* ACT 2: THE SPRING GARDEN (Hidden at start) */
-        .spring-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--spring-sky); opacity: 0; z-index: -1;
-            transition: opacity 3s ease;
-        }
-        .tulip-silhouette {
-            position: absolute; bottom: 0; width: 100%; height: 150px;
-            background: url('https://www.transparentpng.com/download/tulip/flowers-tulip-png-20.png');
-            background-size: contain; opacity: 0.1; filter: brightness(0.5);
+        /* Game Section */
+        .game-section {
+            padding: 50px 0;
+            background: white;
+            border-top: 2px solid #fdf2f2;
         }
 
-        /* ACT 3: THE GAME */
-        #game-area { display: none; padding: 20px 0; }
-        #gameCanvas { 
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(212, 175, 55, 0.3);
-            display: block; margin: 0 auto; border-radius: 15px; touch-action: none;
+        #gameCanvas {
+            background: #fff;
+            display: block;
+            margin: 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 183, 178, 0.2);
+            touch-action: none;
         }
-        
-        #secret-box {
-            display: none; background: rgba(0, 0, 0, 0.6);
-            border: 1px solid var(--gold); padding: 25px;
-            margin: 30px auto; width: 85%; max-width: 450px;
-            border-radius: 15px; text-align: left; line-height: 1.8;
+
+        #score-board { font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; color: var(--soft-pink); }
+        #status-msg { height: 25px; margin: 10px 0; font-weight: 600; color: #ff8b94; }
+
+        /* Secret Message Area */
+        #secret-area {
+            display: none;
+            padding: 40px 20px;
+            animation: fadeIn 1.5s;
+        }
+
+        .message-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            line-height: 1.8;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: left;
+            border: 1px solid var(--soft-pink);
         }
 
         .btn {
-            background: none; border: 1px solid var(--gold); color: var(--gold);
-            padding: 12px 30px; border-radius: 25px; cursor: pointer;
-            margin-top: 20px; font-family: serif; font-size: 1.1rem;
+            background: var(--soft-pink);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
         }
 
-        /* Particle effects */
-        .petal { position: fixed; pointer-events: none; z-index: 99; animation: fall 10s linear infinite; }
-        @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); }
-            100% { transform: translateY(110vh) rotate(360deg); }
-        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
     </style>
 </head>
 <body>
 
-    <div class="spring-bg" id="bg">
-        <div class="tulip-silhouette"></div>
+    <div class="hero">
+        <h1>Happy Birthday! 🎂</h1>
+        <p>A little surprise just for you...</p>
+        <div class="scroll-down">Scroll down to play ↡</div>
     </div>
 
-    <section id="ritual-layer">
-        <div class="cake-container">
-            <div class="candles">
-                <span class="candle" onclick="blowCandle(this)">🕯️</span>
-                <span class="candle" onclick="blowCandle(this)">🕯️</span>
-                <span class="candle" onclick="blowCandle(this)">🕯️</span>
-            </div>
-            🍰
-        </div>
-        <p id="instruction" style="margin-top: 40px; color: var(--gold); letter-spacing: 2px;">MAKE A WISH & TAP THE CANDLES</p>
-    </section>
-
-    <div id="game-area">
-        <div style="margin-bottom: 10px; color: var(--gold);" id="score">Items Collected: 0 / 5</div>
+    <div class="game-section">
+        <div id="score-board">Treats Collected: 0 / 5</div>
+        <div id="status-msg">Tap to jump!</div>
         <canvas id="gameCanvas"></canvas>
+    </div>
 
-        <div id="secret-box">
-            <h3 style="color: var(--gold); text-align: center; margin-top: 0;">For Isha ✨</h3>
-            <div id="personal-note"></div>
-            
-            <center>
-                <button class="btn" id="video-btn" style="display:none;" onclick="showVideo()">Open Your Final Gift 🎁</button>
-            </center>
-            
-            <div id="video-wrap" style="display:none; margin-top: 20px;">
-                <video id="mainVid" controls playsinline style="width: 100%; border-radius: 10px;">
-                    <source src="your-video.mp4" type="video/mp4">
-                </video>
-            </div>
+    <div id="secret-area">
+        <div class="message-box">
+            <p id="personal-note"></p>
         </div>
-    </section>
+        
+        <button class="btn" id="reveal-btn" style="display:none;" onclick="showFinalSurprise()">See Your Video 🎁</button>
+        
+        <div id="video-container" style="display:none; margin-top: 30px;">
+            <video id="bdayVideo" controls playsinline style="width: 100%; max-width: 320px; border-radius: 15px;">
+                <source src="your-video.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
 
     <script>
-        // --- CONFIGURATION ---
-        const message = "Hello Isha...\n\nYou're the most beautiful person I know. I hope this spring brings you everything you've been wishing for.";
-        let candlesOut = 0;
-        let score = 0;
-        let gameRunning = false;
+        // --- YOUR DATA ---
+        const myMessage = "Hello Isha...\n\nYou're the most beautiful person I know.\nI hope today is filled with your favorite things.";
+        const winScore = 5;
 
-        // --- ACT 1: THE BLOW OUT ---
-        function blowCandle(el) {
-            if (el.classList.contains('extinguished')) return;
-            el.classList.add('extinguished');
-            candlesOut++;
-            
-            if (candlesOut === 3) {
-                document.getElementById('instruction').innerText = "WISH GRANTED.";
-                setTimeout(bloomEffect, 1000);
-            }
-        }
-
-        function bloomEffect() {
-            document.getElementById('ritual-layer').style.opacity = '0';
-            document.getElementById('bg').style.opacity = '1';
-            
-            setTimeout(() => {
-                document.getElementById('ritual-layer').style.display = 'none';
-                document.getElementById('game-area').style.display = 'block';
-                initGame();
-                // Start Petal Rain
-                setInterval(createPetal, 2000);
-            }, 2000);
-        }
-
-        // --- ACT 3: THE MOMO & STRAWBERRY GAME ---
+        // --- GAME LOGIC ---
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = Math.min(window.innerWidth - 40, 400);
+        canvas.width = Math.min(window.innerWidth - 40, 360);
         canvas.height = 300;
 
         let player = { x: 50, y: 230, dy: 0, grounded: false };
         let items = [];
+        let score = 0;
+        let unlocked = false;
 
-        function initGame() {
-            gameRunning = true;
-            requestAnimationFrame(gameLoop);
-            setInterval(spawnItem, 2000);
+        function handleInput(e) {
+            if (player.grounded) { player.dy = -11; player.grounded = false; }
+            if (e.type === 'touchstart') e.preventDefault();
         }
+        canvas.addEventListener('touchstart', handleInput);
+        canvas.addEventListener('mousedown', handleInput);
 
-        function spawnItem() {
-            if (!gameRunning) return;
-            const isMomo = Math.random() > 0.5;
-            items.push({ x: canvas.width, y: isMomo ? 230 : 150, type: isMomo ? '🥟' : '🍓', collected: false });
-        }
-
-        function gameLoop() {
+        function update() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Player (Tulip)
-            player.dy += 0.6; // Gravity
+            // Player (Sparkle/Star)
+            player.dy += 0.6;
             player.y += player.dy;
             if (player.y > 230) { player.y = 230; player.grounded = true; }
-            
             ctx.font = "40px Arial";
-            ctx.fillText("🌷", player.x, player.y);
+            ctx.fillText("✨", player.x, player.y);
 
             items.forEach((item, index) => {
-                item.x -= 3;
+                item.x -= 3.5;
+                ctx.font = "30px Arial";
                 ctx.fillText(item.type, item.x, item.y);
 
-                // Collision + Vanish Bug Fix
-                if (Math.abs(player.x - item.x) < 30 && Math.abs(player.y - item.y) < 30 && !item.collected) {
-                    item.collected = true;
-                    score++;
-                    document.getElementById('score').innerText = `Items Collected: ${score} / 5`;
-                    if (score === 5) unlockMessage();
+                // Collision Detection (Bug-free vanish)
+                let dist = Math.sqrt((player.x - item.x)**2 + (player.y - item.y)**2);
+                if (dist < 35) {
+                    if (item.type === '🍓' || item.type === '🥟') {
+                        score++;
+                        items.splice(index, 1); // REMOVE from screen immediately
+                        document.getElementById('score-board').innerText = `Treats Collected: ${score} / ${winScore}`;
+                        if (score >= winScore) unlockEverything();
+                    } else if (item.type === '☁️') {
+                        item.type = '🌸'; // Transform cloud to flower
+                        document.getElementById('status-msg').innerText = "No bad vibes today! ✨";
+                        setTimeout(() => document.getElementById('status-msg').innerText = "", 1500);
+                    }
                 }
             });
 
-            items = items.filter(i => !i.collected && i.x > -50);
-            if (gameRunning) requestAnimationFrame(gameLoop);
+            items = items.filter(i => i.x > -50);
+            if (!unlocked || score < winScore + 10) requestAnimationFrame(update);
         }
 
-        // Jump Controls
-        window.addEventListener('touchstart', () => { if(player.grounded) { player.dy = -12; player.grounded = false; }});
-        window.addEventListener('mousedown', () => { if(player.grounded) { player.dy = -12; player.grounded = false; }});
+        function spawnItem() {
+            if (unlocked && score >= winScore + 2) return;
+            const rand = Math.random();
+            let type = rand > 0.6 ? '🍓' : (rand > 0.2 ? '🥟' : '☁️');
+            items.push({ x: canvas.width, y: (type === '☁️' ? 230 : 160), type: type });
+        }
 
-        // --- FINAL REVEAL ---
-        function unlockMessage() {
-            gameRunning = false;
-            document.getElementById('secret-box').style.display = 'block';
-            typeWriter(message, 0);
+        function unlockEverything() {
+            if (unlocked) return;
+            unlocked = true;
+            document.getElementById('secret-area').style.display = 'block';
+            document.getElementById('status-msg').innerText = "UNLOCKED! 🎉";
+            document.getElementById('secret-area').scrollIntoView({ behavior: 'smooth' });
+            typeWriter(myMessage, 0);
         }
 
         function typeWriter(text, i) {
@@ -211,24 +193,17 @@
                 document.getElementById("personal-note").innerHTML = text.substring(0, i + 1).replace(/\n/g, '<br>');
                 setTimeout(() => typeWriter(text, i + 1), 60);
             } else {
-                document.getElementById('video-btn').style.display = 'block';
+                document.getElementById('reveal-btn').style.display = 'inline-block';
             }
         }
 
-        function showVideo() {
-            document.getElementById('video-wrap').style.display = 'block';
-            document.getElementById('mainVid').play();
+        function showFinalSurprise() {
+            document.getElementById('video-container').style.display = 'block';
+            document.getElementById('bdayVideo').play();
         }
 
-        function createPetal() {
-            const p = document.createElement('div');
-            p.className = 'petal';
-            p.innerText = '🌸';
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            document.body.appendChild(p);
-            setTimeout(() => p.remove(), 10000);
-        }
+        setInterval(spawnItem, 1800);
+        update();
     </script>
 </body>
 </html>
