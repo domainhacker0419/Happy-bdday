@@ -6,93 +6,123 @@
     <title>Happy Birthday!</title>
     <style>
         :root { --soft-pink: #ff9a9e; --bg-cream: #fdfaf6; --text-grey: #5a5a5a; }
-        body { margin: 0; padding: 0; background: var(--bg-cream); font-family: 'Segoe UI', sans-serif; color: var(--text-grey); text-align: center; overflow-x: hidden; }
-
-        /* Sections */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
-        .game-section { padding: 40px 0; background: white; border-top: 1px solid #eee; }
-        .surprise-section { padding: 60px 20px; min-height: 50vh; display: none; } /* Hidden until score 5 */
-
-        h1 { font-size: 2.8rem; color: var(--soft-pink); margin: 0; }
-        #gameCanvas { background: #fff; display: block; margin: 0 auto; touch-action: none; border-radius: 10px; }
         
-        /* The Secret Message Box */
-        #secret-message-box {
-            display: none;
-            background: #fff0f3;
-            border: 2px dashed var(--soft-pink);
-            padding: 20px;
-            margin: 20px auto;
-            width: 80%;
-            max-width: 400px;
-            border-radius: 15px;
-            animation: fadeIn 1s;
+        body { 
+            margin: 0; padding: 0; background: var(--bg-cream); 
+            font-family: 'Segoe UI', sans-serif; color: var(--text-grey); 
+            text-align: center; overflow-x: hidden; 
         }
 
+        /* Section 1: Hero */
+        .hero { 
+            height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; padding: 20px; 
+        }
+        h1 { font-size: 2.8rem; color: var(--soft-pink); margin: 0; }
+        .scroll-hint { margin-top: 20px; font-size: 0.9rem; opacity: 0.6; animation: bounce 2s infinite; }
+
+        /* Section 2: Game */
+        .game-section { padding: 40px 0; background: white; border-top: 1px solid #eee; }
+        #gameCanvas { background: #fff; display: block; margin: 0 auto; touch-action: none; border-radius: 10px; cursor: pointer; }
         #score-board { font-size: 1.2rem; font-weight: bold; color: var(--soft-pink); margin-bottom: 10px; }
         #status-msg { height: 30px; font-weight: bold; color: #f093fb; margin: 10px 0; }
 
-        video { width: 100%; max-width: 320px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 20px; }
-        .btn { background: var(--soft-pink); color: white; border: none; padding: 15px 35px; border-radius: 50px; font-size: 1.1rem; cursor: pointer; }
+        /* Section 3: The Reveal */
+        .surprise-section { padding: 60px 20px; min-height: 80vh; display: none; }
+        
+        #secret-message-box {
+            background: #fff0f3; border: 2px dashed var(--soft-pink);
+            padding: 25px; margin: 20px auto; width: 85%; max-width: 450px;
+            border-radius: 15px; text-align: left; position: relative;
+        }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #personal-note { font-size: 1.1rem; line-height: 1.6; color: #444; min-height: 50px; }
+        
+        .cursor {
+            display: inline-block; width: 3px; height: 1.1rem;
+            background-color: var(--soft-pink); margin-left: 2px;
+            vertical-align: middle; animation: blink 1s infinite;
+        }
+
+        #video-wrapper { display: none; margin-top: 30px; }
+        video { width: 100%; max-width: 320px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        
+        .btn { 
+            background: var(--soft-pink); color: white; border: none; 
+            padding: 15px 35px; border-radius: 50px; font-size: 1.1rem; 
+            cursor: pointer; margin-top: 20px;
+        }
+
+        /* Animations */
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
+        
+        .balloon { position: fixed; bottom: -100px; font-size: 30px; z-index: -1; animation: floatUp 10s linear infinite; }
+        @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-120vh) rotate(20deg); } }
     </style>
 </head>
 <body>
 
     <div class="hero">
         <h1>Happy Birthday! 🎂</h1>
-        <p>I have a secret for you...</p>
-        <p>But you have to prove you're a Cake Master first!</p>
-        <p style="font-size: 0.8rem; opacity: 0.5;">(Scroll down to play)</p>
+        <p>I have a secret surprise for you...</p>
+        <p>But first, catch 5 cakes to unlock it!</p>
+        <div class="scroll-hint">Scroll down to play ↡</div>
     </div>
 
     <div class="game-section">
         <div id="score-board">Cakes Caught: 0 / 5</div>
-        <div id="status-msg">Catch 5 cakes to unlock the secret!</div>
+        <div id="status-msg">Tap to Jump!</div>
         <canvas id="gameCanvas"></canvas>
     </div>
 
     <div class="surprise-section" id="unlock-area">
         <div id="secret-message-box">
-            <h3 style="color: var(--soft-pink); margin-top: 0;">A Special Note for You ✨</h3>
-            <p id="personal-note">Hello</p> </div>
+            <h3 style="color: var(--soft-pink); margin-top: 0; text-align: center;">A Message for Isha ✨</h3>
+            <div id="personal-note"></div><span class="cursor" id="cursor"></span>
+        </div>
 
-        <button class="btn" onclick="revealVideo()">Click for your final surprise 🎁</button>
-        <div id="video-wrapper" style="display:none;">
+        <button class="btn" id="reveal-btn" style="display:none;" onclick="revealVideo()">See Final Surprise 🎁</button>
+        
+        <div id="video-wrapper">
             <video id="bdayVideo" playsinline controls>
                 <source src="your-video.mp4" type="video/mp4">
+                Your browser doesn't support video.
             </video>
         </div>
     </div>
 
     <script>
+        // --- CONFIGURATION ---
+        const myMessage = "Hello Isha...\n\nYou're the most beautiful person I know. Happy Birthday!"; 
+        const winScore = 5;
+
+        // --- GAME ENGINE ---
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-        const scoreBoard = document.getElementById('score-board');
-        const unlockArea = document.getElementById('unlock-area');
-        const secretBox = document.getElementById('secret-message-box');
-
         canvas.width = Math.min(window.innerWidth - 40, 400);
         canvas.height = 300;
 
-        let player = { x: 50, y: 230, w: 40, h: 40, dy: 0, jumpPower: -10, gravity: 0.5, grounded: false };
+        let player = { x: 50, y: 230, dy: 0, jumpPower: -11, gravity: 0.6, grounded: false };
         let items = [];
         let score = 0;
         let unlocked = false;
 
         function handleInput(e) {
             if (player.grounded) { player.dy = player.jumpPower; player.grounded = false; }
-            e.preventDefault();
+            if (e.type === 'touchstart') e.preventDefault();
         }
         canvas.addEventListener('touchstart', handleInput);
         canvas.addEventListener('mousedown', handleInput);
 
         function update() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Player Physics
             player.dy += player.gravity;
             player.y += player.dy;
             if (player.y > 230) { player.y = 230; player.grounded = true; }
+            
             ctx.font = "40px Arial";
             ctx.fillText("✨", player.x, player.y);
 
@@ -107,8 +137,8 @@
                     item.collected = true;
                     if (item.type === '🎂') {
                         score++;
-                        scoreBoard.innerText = `Cakes Caught: ${score} / 5`;
-                        checkUnlock();
+                        document.getElementById('score-board').innerText = `Cakes Caught: ${score} / ${winScore}`;
+                        if (score >= winScore) unlockSurprise();
                     } else if (item.type === '🚫') {
                         item.type = '💖';
                         document.getElementById('status-msg').innerText = "No bad vibes, cutie! ✨";
@@ -120,14 +150,31 @@
             requestAnimationFrame(update);
         }
 
-        function checkUnlock() {
-            if (score >= 5 && !unlocked) {
+        // --- TYPEWRITER & REVEAL ---
+        function unlockSurprise() {
+            if (!unlocked) {
                 unlocked = true;
-                unlockArea.style.display = 'block';
-                secretBox.style.display = 'block';
-                document.getElementById('status-msg').innerText = "UNLOCKED! Scroll down! 🎉";
-                unlockArea.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('unlock-area').style.display = 'block';
+                document.getElementById('status-msg').innerText = "UNLOCKED! 🎉";
+                document.getElementById('unlock-area').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => typeWriter(myMessage, 0), 1000);
             }
+        }
+
+        function typeWriter(text, i) {
+            if (i < text.length) {
+                document.getElementById("personal-note").innerHTML = text.substring(0, i + 1).replace(/\n/g, '<br>');
+                setTimeout(() => typeWriter(text, i + 1), 70); 
+            } else {
+                document.getElementById('cursor').style.display = 'none';
+                document.getElementById('reveal-btn').style.display = 'inline-block';
+            }
+        }
+
+        function revealVideo() {
+            document.getElementById('video-wrapper').style.display = 'block';
+            document.getElementById('bdayVideo').play();
+            document.getElementById('video-wrapper').scrollIntoView({ behavior: 'smooth' });
         }
 
         function spawnItem() {
@@ -135,12 +182,17 @@
             items.push({ x: canvas.width, y: isCake ? 140 : 230, type: isCake ? '🎂' : '🚫', collected: false, speed: 4 });
         }
 
-        function revealVideo() {
-            document.getElementById('video-wrapper').style.display = 'block';
-            document.getElementById('bdayVideo').play();
+        function createBalloon() {
+            const b = document.createElement('div');
+            b.className = 'balloon';
+            b.innerText = ['🎈', '🌸', '✨'][Math.floor(Math.random()*3)];
+            b.style.left = Math.random() * 100 + 'vw';
+            document.body.appendChild(b);
+            setTimeout(() => b.remove(), 10000);
         }
 
         setInterval(spawnItem, 1800);
+        setInterval(createBalloon, 1500);
         update();
     </script>
 </body>
