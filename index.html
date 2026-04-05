@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday Isha! 🌷</title>
+    <title>Happy Birthday Isha!🎉🎊🎈🌷</title>
     <style>
         :root { --pink: #ffb7b2; --cream: #fff9f0; --gray: #6d6875; }
         body { margin: 0; padding: 0; background: var(--cream); font-family: sans-serif; color: var(--gray); text-align: center; }
         
-        /* Part 1: The Ritual */
+        
         .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         #giant-cake { font-size: 100px; cursor: pointer; margin: 20px; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; }
         #giant-cake:active { transform: scale(1.2); }
         
-        /* Part 2: The Game */
+        
         .game-area { padding: 40px 0; background: white; border-top: 1px solid #eee; min-height: 450px; }
         canvas { background: #fff; display: block; margin: 0 auto; border-radius: 10px; border: 1px solid #ddd; touch-action: none; }
         #status { height: 30px; font-weight: bold; color: #ff8b94; margin: 15px; font-style: italic; }
         
-        /* Part 3: The Reveal */
+       
         #secret { display: none; padding: 30px 20px; animation: fadeIn 1s; }
         .box { background: #fff; padding: 20px; border-radius: 15px; max-width: 340px; margin: 0 auto; border: 1px solid var(--pink); text-align: left; line-height: 1.6; }
         .btn { background: var(--pink); color: white; border: none; padding: 15px 30px; border-radius: 30px; margin-top: 20px; cursor: pointer; font-weight: bold; font-size: 1rem; }
@@ -33,9 +33,9 @@
 
     <div class="hero">
         <h1 style="color: #ff8b94;">Happy Birthday, Isha! 🌷</h1>
-        <div id="giant-cake" onclick="this.innerText='🥳'; setTimeout(()=>this.innerText='🎂', 1000);">🎂</div>
+        <div id="giant-cake" onclick="startExperience(this)">🎂</div>
         <p>Tap on the cake 🎂</p>
-        <p style="font-size: 0.8rem; opacity: 0.4; margin-top: 50px;">↡ Scroll down to play ↡</p>
+        <p style="font-size: 0.8rem; opacity: 0.4; margin-top: 50px;"> A small message below </p>
     </div>
 
     <div class="game-area">
@@ -54,7 +54,7 @@
                 <textarea id="user-journal" placeholder="Ai... Sharmana chod daal raaz dil ka khol daal aaju baju mat dekh I.....😉" 
                     style="width: 100%; height: 120px; border-radius: 10px; border: 1px solid var(--pink); padding: 10px; font-family: inherit; font-size: 0.9rem; outline: none; box-sizing: border-box;"></textarea>
                 <p id="save-status" style="font-size: 0.7rem; color: #888; text-align: right; margin-top: 5px;">BTW this only you can see...</p>
-                    </div> <button class="btn" id="v-btn" style="display:none;" onclick="revealSurprise()">Click karo 🎁</button>
+                    </div> <button class="btn" id="v-btn" style="display:none;" onclick="videoedit()">Click karo 🎁</button>
         
         <div id="v-wrap" style="display: none; margin-top: 25px;">
             <video id="vid" controls playsinline style="width:100%; border-radius:12px; border: 2px solid var(--pink);">
@@ -63,9 +63,8 @@
             <a href="https://drive.google.com/your-link" target="_blank" class="hd-link">✨ Aree vo site pe size limit hai.. to in case you wanna download in better quality ✨</a>
         </div>
     </div>     <script>
-        // 1. GLOBAL VARIABLES - All the brains of the site
+        // Variables
         const msg = "Hello Isha...\n\nBhaiiiiiii soooooo much to talk to you about mannnnnnnnnnn.... pehle to Happy vala birthday madam ji aapko... khooooooob jiyo aur mauj karte raho... Achha first things first bhaiiiiiii you're soooo beautiful 😍... The most beautiful person on Earth you are Isha.. you are miss perfect.. sometimes I get jealous of you.. Koi itna achha itna perfect kese ho sakta hai... Honestly Isha you're the best.. you are Smart, you are intelligent, you are beautiful, itna talent late kaha se ho? You know a lot of thw times you give me inspiration.. The way you treat people around you.. The way you're calm(appear calm I know that even my baddie sometimes feels a bit sad and stressed) but it gives me motivation to be better... I am sure it gives motivation to a lot of people around you.. But what about you? How do you feel Isha? What's going inside your head? How does Isha actually handel everything? Does she feel sad sometimes? Is she scared often? If yes what is she scared of? Does she wanna giveup at times and move to the mountains (Bhai agar ye wala yes hai to mein bhi +1) Qhat keeps her calm? What keeps her going (Mene galti se going to gooning likh diya tha 😂😂)? I know 100% people around her take motivation from her but who does she take motivation from(it's not like I am trying to change my motivation... I'll always be looking at you and learning things from you cause even in your worst you're the best girl)? Does Isha pandey sometimes feels alone? Does she sometimes look back and think what if she could change things? Today is your day Isha... I know it's  not much but I would like you to answer these questions... not to me not to anyone but yourself? Bhaii mene jada sawal krdiye? ia it overwhelming? Is isha ever overwhelmed by any task(as far as I know yes she is but she's she doesn't know she's stronger than any task and can easily tackle any task). Does Isha know that she's perfect? I don't lnow the answers to any of these questions... but I wanna assure you Isha that there's nothing you cannot achieve.. There's nothing that can break you... you are never alone(I am always here bolna cheesy hoga kya?). Just know that no matter the doubts you face the criticism you face the names they call you the acolding you get the eyes they show you the looks they give you they try to scare you tease you make you feel low make you doubt yourself make you feel like you're not enough... never believe any of that don't even question yourself ever.. Just know my baddie is never wrong... she's always right she's always correct.. Isha never doubt yourself.. never feel alone.. never question your actions.. Galti hui to? koi baat nahi sudhaar lenge na.. akele nahi sudhaar payi to? To mein kyu hu yaha(mtlb abhi mahi hu vaha pr yahi hu aapke paas kabhi nahi jaunga kahi nahi jaunga😉) Bhyii sabko Isha suooort karegi to usko kaun karega? \n Mein karunga na ladliii.. you're feeling sad you wanna shout at someone call me and shout at me... you're feeling down you wanna hit someone maar do mujhe... You feel you're  doibting yourself I'll boost you.. galat bhi decision le rahi jogi tab bhi full support.... kyu kya hogya ek galti krdi to koi na sudhaar lenge na(vese bhi Isha labhi galat nahi hoti💅) Bas aap khush raho.. Yu hi muskurate raho... The world's prettiest smile hehe prtty potato(joking okay you have the most beautiful smile... aapke aage to sare heroine fail hai madam ji) your one smile makes my day it's like a beautiful ray of sunshine in a gloomy day... one ray and everyone becomes hopeful everyone feels joyous... one smile and the whole room lights up... keep that beautiful smile always.. But what about Sad Isha? Sad Isha is the best person she's a little mean but it's only beause she doesn't want to spread her sadness she's a little introvert she likes to stay by herself so she can figure things cause she's strong and she can handel things.. and if she feels she can't do it to hum kya hi kar payenge us kaam ko agar vo nahi kar payegi to.. lekin help to pkka karenge uski.. Sad Isha is like a the most precious diamond... cause she's tough on the inside but beautiful on the outside... \n Angry Isha? Bhaiii maja aata hai angry Isha ke sath... no filter at all... lol abe ja na tu saleee teriii saaleee 😂😂 she's soo much fun.. aur agar jara gussa hi na aaye to smiling Isha thak nahi jayegi.. akhir angry Isha to sad Isha aur Smiling Isha ko balance out bhi to krna hai... She's looks feirce like a fire but it's only when you get closer to her you realize she can provide warmth.. Angry Isha might sound selfish but she's the one who cares the most... even though she'll shout at you and face waya feom you.. she's the one who cares about you the most. Miss angry Isha \n And Playful Isha? bhai ye hhi koi sawal hai playful Isha ke lye bas ek baat mast aadmi.. mast baketi karo mauj kato aur khush raho badiya aadmi ho tum \n Par koi to Isha hogi jo achhi nahi hai? Hmmmmmmmmmmmm you are a good question my friend but a bas question... Even no Isha is the best feeling.. When Isha you you have the most beautiful time of your life... No Isha you have her memories most beautiful time of your life... Win Win.... \n But then which Isha is the best? Hmmm tough question.. Diplomatic answer😈 Every Isha is the best cause alllllll these Isha together make the mooooooooooooooooooooooooooost beautiful girl in the world... Isha Pandey \n One task for you... I know you are feeling lots of emotions... down there's a space just type in alllllllllll your thoughts all of them don't spare any(I will read😈 hehe no I won't read I mean I can't read... not that I can't read only I'll just not read your emptions... it's not like I don't wanna read but in case you wanna keep them a secret 🤐( abhi pta chala ye secret ka empji hai lol😂😂) just type down alll your thoughts and maybe the answers to those questions? \n in any case Isha pandey be happy always.\n Yours Truly~";
-        
         let skipTyping = false; 
         let unlocked = false;
         let score = 0;
@@ -80,7 +79,7 @@
         cvs.width = Math.min(window.innerWidth - 40, 340);
         cvs.height = 240;
 
-        // 2. THE GAME LOGIC - Makes the Panda jump
+        // Game
         window.onscroll = function() {
             if (!gameStarted && window.pageYOffset > 150) {
                 gameStarted = true;
@@ -103,7 +102,7 @@
                 if (Math.abs(p.x - it.x) < 30 && Math.abs(p.y - it.y) < 30) {
                     if (it.t === '🍓' || it.t === '🥟') {
                         score++;
-                        updateCommentary(score);
+                        message(score);
                         items.splice(i, 1);
                         document.getElementById('stats').innerText = "Treats Collected: " + score;
                         if(score == 5) unlock();
@@ -126,8 +125,6 @@
         function jump() { if(p.g) { p.dy = -13; p.g = false; } }
         cvs.addEventListener('touchstart', (e) => { jump(); e.preventDefault(); }, {passive:false});
         cvs.addEventListener('mousedown', jump);
-
-        // 3. UNLOCK & REVEAL - Opens the box
         function unlock() {
             if (unlocked) return;
             unlocked = true;
@@ -165,16 +162,17 @@
                 document.getElementById('notepad-area').style.display = 'block';
             }
         }
-function updateCommentary(s) {
+function message(s) {
     const st = document.getElementById('status');
     if (s == 1) st.innerText = "Bhai 5 to collect krne padenge code bnaya mene khelna to padega";
     if (s == 3) st.innerText = "2 more";
+    if (s == 4) st.innerText = "1 more";
     if (s == 6) st.innerText = "Bas now you can stop 🛑";
     if (s == 10) st.innerText = "Bhai, rukk ja ab ladle... energy bacha lo";
     if (s == 20) st.innerText = "Areee bass karo ab ho gaya mate(देवी)... vese devo to aap ho hi!";
 }
         
-        function revealSurprise() {
+        function videoedit() {
             document.getElementById('v-wrap').style.display = 'block';
             document.getElementById('vid').play();
             setTimeout(() => {
@@ -182,7 +180,27 @@ function updateCommentary(s) {
             }, 100);
         }
 
-        // 4. NOTEPAD LOGIC - Saves her thoughts locally
+        function startExperience(el) {
+    // cake animation
+    el.innerText = '🥳';
+    setTimeout(() => el.innerText = '🎂', 1000);
+
+    // scroll down automatically
+    window.scrollTo({
+        top: window.innerHeight,
+        behavior: 'smooth'
+    });
+
+    // start game immediately (no need to wait for scroll detection)
+    if (!gameStarted) {
+        gameStarted = true;
+        draw();
+        triggerSpawn();
+    }
+}
+
+
+        
         const journal = document.getElementById('user-journal');
         if (journal) {
             if (localStorage.getItem('isha_thoughts')) {
