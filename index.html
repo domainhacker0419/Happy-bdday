@@ -24,17 +24,22 @@
     }
 
 .float {
-    position: absolute; /* IMPORTANT: not fixed anymore */
-    font-size: 24px;
-    opacity: 0.8;
-    pointer-events: none;
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.25;              
+    filter: blur(1px);          
+    transform: scale(0.9);      
     animation: floatAnim linear infinite;
-    z-index: -1; /* behind everything */
 }
 .hero, .game-area, #secret {
     position: relative;
     z-index: 1;
 }
+        .hero, .game-area, #secret {
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(4px);
+        }
         #bg-float {
     position: fixed;
     top: 0;
@@ -63,8 +68,13 @@
         #giant-cake { font-size: 100px; cursor: pointer; margin: 20px; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; }
         #giant-cake:active { transform: scale(1.2); }
         
-        
-        .game-area { padding: 40px 0; background: transparent; border-top: 1px solid #eee; min-height: 450px; }
+        .game-area {
+    padding: 40px 0;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    margin: 20px;
+    backdrop-filter: blur(10px);
+        }
         canvas { background: #fff; display: block; margin: 0 auto; border-radius: 10px; border: 1px solid #ddd; touch-action: none; }
         #status { height: 30px; font-weight: bold; color: #ff8b94; margin: 15px; font-style: italic; }
         
@@ -267,12 +277,12 @@ function message(s) {
         }
 
 const messages = [
-    "you are enough",
-    "stay happy",
-    "keep smiling",
-    "you matter",
-    "never alone",
-    "always strong"
+    "You go girl",
+    "Stay happy always",
+    "Keep smiling",
+    "you are the best",
+    "Kawaiiii",
+    "Trust yourself"
 ];
 
 const emojis = ["🎈","🎂","🎉","🌸","🎁","✨"];
@@ -282,7 +292,7 @@ function createFloating() {
     el.className = "float";
 
     // content
-    if (Math.random() > 0.5) {
+    if (Math.random() > 0.8) {
         el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
         el.style.fontSize = (20 + Math.random() * 20) + "px";
     } else {
@@ -304,7 +314,7 @@ function createFloating() {
     el.style.setProperty("--endY", endY + "px");
 
     // speed (slow + smooth)
-    const duration = 15 + Math.random() * 10;
+    const duration = 25 + Math.random() * 15;
     el.style.animationDuration = duration + "s";
     el.style.animationTimingFunction = "ease-in-out";
 
@@ -315,12 +325,12 @@ function createFloating() {
 
 window.onload = () => {
     // instant burst (no delay at all)
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 15; i++) {
         createFloating();
     }
 
     // continuous flow
-    setInterval(createFloating, 300);
+    setInterval(createFloating, 900);
 };
         
     </script>           
