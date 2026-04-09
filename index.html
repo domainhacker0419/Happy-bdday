@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    <div id="bg-float"></div>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -23,7 +24,7 @@
     }
 
 .float {
-    position: fixed;
+    position: absolute; /* IMPORTANT: not fixed anymore */
     font-size: 24px;
     opacity: 0.8;
     pointer-events: none;
@@ -34,6 +35,16 @@
     position: relative;
     z-index: 1;
 }
+        #bg-float {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0; /* background layer */
+    overflow: hidden;
+        }
 @keyframes floatAnim {
     0% {
         transform: translate(var(--startX), var(--startY));
@@ -297,7 +308,7 @@ function createFloating() {
     el.style.animationDuration = duration + "s";
     el.style.animationTimingFunction = "ease-in-out";
 
-    document.body.appendChild(el);
+    document.getElementById("bg-float").appendChild(el);
 
     setTimeout(() => el.remove(), duration * 1000);
 }
