@@ -268,6 +268,7 @@ function createFloating() {
     // random animation duration
     const duration = 10 + Math.random() * 10;
     el.style.animationDuration = duration + "s";
+    el.style.animationTimingFunction = "ease-in-out";
 
     // slight random horizontal drift
     el.style.transform = `translateX(${Math.random() * 50}px)`;
