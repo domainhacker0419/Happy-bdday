@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    document.body.classList.add("locked");
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday Isha!🎉🎊🎈🌷</title>
     <style>
@@ -9,27 +10,37 @@
         body {
     margin: 0;
     font-family: sans-serif;
-    background: linear-gradient(135deg, #f8fbff, #eef3f9, #ffffff);
+    background: linear-gradient(
+        135deg,
+        #fff5f7 0%,
+        #f3e8ff 40%,
+        #fffafc 100%
+    );
     overflow-x: hidden;
-}
+        }
+
+    body.locked {
+    overflow: hidden;
+    }
 
 .float {
     position: fixed;
-    font-size: 22px;
-    opacity: 0.6;
+    font-size: 24px;
+    opacity: 0.85;
     pointer-events: none;
     animation: floatAnim linear infinite;
+    z-index: 0;
 }
 
 @keyframes floatAnim {
     0% {
-        transform: translateY(110vh) translateX(0);
+        transform: translateY(120vh) translateX(0);
         opacity: 0;
     }
-    10% { opacity: 0.6; }
-    90% { opacity: 0.6; }
+    10% { opacity: 0.85; }
+    90% { opacity: 0.85; }
     100% {
-        transform: translateY(-120vh) translateX(100px);
+        transform: translateY(-120vh) translateX(80px);
         opacity: 0;
     }
 }
@@ -207,23 +218,26 @@ function message(s) {
         }
 
         function startExperience(el) {
+    // unlock scrolling
+    document.body.classList.remove("locked");
+
     // cake animation
     el.innerText = '🥳';
     setTimeout(() => el.innerText = '🎂', 1000);
 
-    // scroll down automatically
+    // scroll to game
     window.scrollTo({
         top: window.innerHeight,
         behavior: 'smooth'
     });
 
-    // start game immediately (no need to wait for scroll detection)
+    // start game
     if (!gameStarted) {
         gameStarted = true;
         draw();
         triggerSpawn();
     }
-}
+        }
 
 
         
@@ -266,7 +280,7 @@ function createFloating() {
     el.style.left = Math.random() * 100 + "vw";
 
     // random animation duration
-    const duration = 10 + Math.random() * 10;
+    const duration = 18 + Math.random() * 12;
     el.style.animationDuration = duration + "s";
     el.style.animationTimingFunction = "ease-in-out";
 
@@ -281,8 +295,15 @@ function createFloating() {
     }, duration * 1000);
 }
 
-// spawn continuously but not cluttered
-setInterval(createFloating, 1200);
+document.addEventListener("DOMContentLoaded", () => {
+    // burst at start
+    for (let i = 0; i < 15; i++) {
+        setTimeout(createFloating, i * 150);
+    }
+
+    // continuous flow
+    setInterval(createFloating, 600);
+});
         
     </script>           
 </body>
