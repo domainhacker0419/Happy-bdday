@@ -6,20 +6,41 @@
     <title>Happy Birthday Isha!🎉🎊🎈🌷</title>
     <style>
         :root { --pink: #ffb7b2; --cream: #fff9f0; --gray: #6d6875; }
-        body::before {
+        body {
+    margin: 0;
+    font-family: sans-serif;
+    background: linear-gradient(135deg, #fff1f0, #ffe4e1, #fff9f0);
+    overflow-x: hidden;
+}
+
+/* Floating balloons + message */
+body::before {
+    content: "🎈 you are enough 🎈 stay happy 🎂 keep smiling 🎉 you matter 🎀 always strong 🌸 never alone 🎁 just be you 🎈";
+    position: fixed;
+    top: 100%;
+    left: 0;
+    width: 200%;
+    font-size: 20px;
+    line-height: 2.5;
+    color: rgba(255, 139, 148, 0.6);
+    white-space: nowrap;
+    animation: floatText 25s linear infinite;
+    pointer-events: none;
+}
+
+/* soft glow overlay */
+body::after {
     content: "";
     position: fixed;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(255,183,178,0.2) 1px, transparent 1px);
-    background-size: 40px 40px;
-    animation: moveBg 20s linear infinite;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.6), transparent 70%);
     z-index: -1;
 }
 
-@keyframes moveBg {
-    from { transform: translateY(0); }
-    to { transform: translateY(100px); }
+@keyframes floatText {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(-120vh) translateX(-50px); }
 }
         
         
