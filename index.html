@@ -25,21 +25,24 @@
 .float {
     position: fixed;
     font-size: 24px;
-    opacity: 0.85;
+    opacity: 0.8;
     pointer-events: none;
     animation: floatAnim linear infinite;
-    z-index: 0;
+    z-index: -1; /* behind everything */
 }
-
+.hero, .game-area, #secret {
+    position: relative;
+    z-index: 1;
+}
 @keyframes floatAnim {
     0% {
-        transform: translateY(120vh) translateX(0);
+        transform: translate(var(--startX), var(--startY));
         opacity: 0;
     }
-    10% { opacity: 0.85; }
-    90% { opacity: 0.85; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
     100% {
-        transform: translateY(-120vh) translateX(80px);
+        transform: translate(var(--endX), var(--endY));
         opacity: 0;
     }
 }
@@ -50,7 +53,7 @@
         #giant-cake:active { transform: scale(1.2); }
         
         
-        .game-area { padding: 40px 0; background: white; border-top: 1px solid #eee; min-height: 450px; }
+        .game-area { padding: 40px 0; background: transparent; border-top: 1px solid #eee; min-height: 450px; }
         canvas { background: #fff; display: block; margin: 0 auto; border-radius: 10px; border: 1px solid #ddd; touch-action: none; }
         #status { height: 30px; font-weight: bold; color: #ff8b94; margin: 15px; font-style: italic; }
         
@@ -267,7 +270,7 @@ function createFloating() {
     const el = document.createElement("div");
     el.className = "float";
 
-    // randomly choose emoji or text
+    // content
     if (Math.random() > 0.5) {
         el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
         el.style.fontSize = (20 + Math.random() * 20) + "px";
@@ -276,35 +279,38 @@ function createFloating() {
         el.style.fontSize = "14px";
     }
 
-    // random horizontal position
-    el.style.left = Math.random() * 100 + "vw";
+    // RANDOM START POSITION (anywhere on screen)
+    const startX = Math.random() * window.innerWidth;
+    const startY = Math.random() * window.innerHeight;
 
-    // random animation duration
-    const duration = 18 + Math.random() * 12;
+    // RANDOM END POSITION (move somewhere else)
+    const endX = startX + (Math.random() - 0.5) * 300;
+    const endY = startY - (Math.random() * 400 + 100);
+
+    el.style.setProperty("--startX", startX + "px");
+    el.style.setProperty("--startY", startY + "px");
+    el.style.setProperty("--endX", endX + "px");
+    el.style.setProperty("--endY", endY + "px");
+
+    // speed (slow + smooth)
+    const duration = 15 + Math.random() * 10;
     el.style.animationDuration = duration + "s";
     el.style.animationTimingFunction = "ease-in-out";
 
-    // slight random horizontal drift
-    const drift = (Math.random() - 0.5) * 200; // left + right both
-el.style.transform = `translateX(${drift}px)`;
-
     document.body.appendChild(el);
 
-    // remove after animation
-    setTimeout(() => {
-        el.remove();
-    }, duration * 1000);
+    setTimeout(() => el.remove(), duration * 1000);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    // heavy burst at start (instant feel)
-    for (let i = 0; i < 25; i++) {
-        setTimeout(createFloating, i * 1);
+window.onload = () => {
+    // instant burst (no delay at all)
+    for (let i = 0; i < 30; i++) {
+        createFloating();
     }
 
-    // continuous smoother flow
-    setInterval(createFloating, 100);
-});
+    // continuous flow
+    setInterval(createFloating, 300);
+};
         
     </script>           
 </body>
