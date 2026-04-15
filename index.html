@@ -80,19 +80,25 @@
         
        
         #secret { display: none; padding: 30px 20px; animation: fadeIn 1s; }
-        .box { background: #fff; padding: 20px; border-radius: 15px; max-width: 340px; margin: 0 auto; border: 1px solid var(--pink); text-align: left; line-height: 1.6; }
+        .box { background: #fff; padding: 20px; border-radius: 15px; max-width: 340px; margin: 0 auto; border: 1px solid var(--pink); text-align: left; line-height: 1.6; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+             }
         .btn { background: var(--pink); color: white; border: none; padding: 15px 30px; border-radius: 30px; margin-top: 20px; cursor: pointer; font-weight: bold; font-size: 1rem; }
         
         #v-wrap { display: none; margin-top: 25px; }
         .hd-link { display: block; margin-top: 15px; color: var(--pink); text-decoration: none; font-size: 0.85rem; font-weight: bold; opacity: 0.8; }
 
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+        @keyframes punch {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+        }
+        
     </style>
 </head>
 <body>
 
     <div class="hero">
-        <h1 style="color: #ff8b94;">Happy Birthday Isha!🎉🎊🎈🌷</h1>
+        <h1 style="color: #ff8b94; text-shadow: 2px 2px 0px #fff, 4px 4px 0px rgba(255,139,148,0.5); animation: punch 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;">Happy Birthday Isha!🎉🎊🎈🌷</h1>
         <div id="giant-cake" onclick="startExperience(this)">🎂</div>
         <p>Tap on the cake 🎂</p>
         <p style="font-size: 0.8rem; opacity: 0.4; margin-top: 50px;"> A small message below </p>
