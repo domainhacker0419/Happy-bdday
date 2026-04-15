@@ -5,89 +5,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday Isha!🎉🎊🎈🌷</title>
-    <style>
-        :root { --pink: #ffb7b2; --cream: #fff9f0; --gray: #6d6875; }
-        body {
-    margin: 0;
-    font-family: sans-serif;
-    background: linear-gradient(
-        135deg,
-        #fff5f7 0%,
-        #f3e8ff 40%,
-        #fffafc 100%
-    );
-    overflow-x: hidden;
-        }
-
-    body.locked {
-    overflow: hidden;
+<style>
+    :root { 
+        --pink: #ffb7b2; 
+        --dark-pink: #ff8b94;
+        --cream: #fff9f0; 
+        --gray: #6d6875; 
+        --pop-shadow: 2px 2px 0px #fff, 5px 5px 0px var(--pink);
     }
 
-.float {
-    position: absolute;
-    font-size: 20px;
-    opacity: 0.25;              
-    filter: blur(1px);          
-    transform: scale(0.9);      
-    animation: floatAnim linear infinite;
-}
-.hero, .game-area, #secret {
-    position: relative;
-    z-index: 1;
-}
-        .hero, .game-area, #secret {
-    position: relative;
-    z-index: 1;
-    backdrop-filter: blur(4px);
-        }
-        #bg-float {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0; /* background layer */
-    overflow: hidden;
-        }
-@keyframes floatAnim {
-    0% {
-        transform: translate(var(--startX), var(--startY));
-        opacity: 0;
-    }
-    10% { opacity: 0.8; }
-    90% { opacity: 0.8; }
-    100% {
-        transform: translate(var(--endX), var(--endY));
-        opacity: 0;
-    }
-}
-        
-        
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        #giant-cake { font-size: 100px; cursor: pointer; margin: 20px; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; }
-        #giant-cake:active { transform: scale(1.2); }
-        
-        .game-area {
-    padding: 40px 0;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 20px;
-    margin: 20px;
-    backdrop-filter: blur(10px);
-        }
-        canvas { background: #fff; display: block; margin: 0 auto; border-radius: 10px; border: 1px solid #ddd; touch-action: none; }
-        #status { height: 30px; font-weight: bold; color: #ff8b94; margin: 15px; font-style: italic; }
-        
-       
-        #secret { display: none; padding: 30px 20px; animation: fadeIn 1s; }
-        .box { background: #fff; padding: 20px; border-radius: 15px; max-width: 340px; margin: 0 auto; border: 1px solid var(--pink); text-align: left; line-height: 1.6; }
-        .btn { background: var(--pink); color: white; border: none; padding: 15px 30px; border-radius: 30px; margin-top: 20px; cursor: pointer; font-weight: bold; font-size: 1rem; }
-        
-        #v-wrap { display: none; margin-top: 25px; }
-        .hd-link { display: block; margin-top: 15px; color: var(--pink); text-decoration: none; font-size: 0.85rem; font-weight: bold; opacity: 0.8; }
+    /* ... (rest of your body/float CSS) ... */
 
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-    </style>
+    /* The "Pop-Out" Header Effect */
+    .hero h1 {
+        font-size: 2.8rem;
+        text-align: center;
+        color: white;
+        /* Layered shadow creates a 3D effect */
+        text-shadow: 
+            1px 1px 0px var(--dark-pink),
+            2px 2px 0px var(--dark-pink),
+            3px 3px 0px var(--dark-pink),
+            4px 4px 0px var(--dark-pink),
+            5px 5px 10px rgba(0,0,0,0.2);
+        letter-spacing: 2px;
+        transform: rotate(-2deg); /* Adds a playful vibe */
+        margin-bottom: 10px;
+    }
+
+    /* Making the game stats and sub-text pop */
+    #stats, #status {
+        text-shadow: 1px 1px 0px #fff;
+        filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.1));
+    }
+
+    /* Enhancing the Message Box to "Lift" off the screen */
+    .box { 
+        background: rgba(255, 255, 255, 0.95); 
+        padding: 25px; 
+        border-radius: 20px; 
+        max-width: 360px; 
+        margin: 0 auto; 
+        /* Double border/shadow for depth */
+        border: 3px solid var(--pink);
+        box-shadow: 0px 10px 25px rgba(255, 183, 178, 0.4), 10px 10px 0px var(--cream);
+        text-align: left; 
+        line-height: 1.7; 
+        position: relative;
+    }
+
+    /* Adding a "Sticker" feel to the buttons */
+    .btn { 
+        background: var(--dark-pink); 
+        color: white; 
+        border: none; 
+        padding: 15px 30px; 
+        border-radius: 15px; 
+        cursor: pointer; 
+        font-weight: bold; 
+        font-size: 1.1rem;
+        box-shadow: 0px 4px 0px #d66d75; /* Bottom shadow for thickness */
+        transition: all 0.1s;
+    }
+
+    .btn:active {
+        transform: translateY(3px);
+        box-shadow: 0px 1px 0px #d66d75;
+    }
+
+    /* Smooth pulse for the cake to make it "pop" visually */
+    #giant-cake {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+    }
+</style>
+
 </head>
 <body>
 
