@@ -1,90 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-    <div id="bg-float"></div>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday Isha!🎉🎊🎈🌷</title>
-<style>
-    :root { 
-        --pink: #ffb7b2; 
-        --dark-pink: #ff8b94;
-        --cream: #fff9f0; 
-        --gray: #6d6875; 
-        --pop-shadow: 2px 2px 0px #fff, 5px 5px 0px var(--pink);
-    }
+    <style>
+        :root { --pink: #ffb7b2; --cream: #fff9f0; --gray: #6d6875; }
+        body::before {
+    content: "";
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,183,178,0.2) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: moveBg 20s linear infinite;
+    z-index: -1;
+}
 
-    /* ... (rest of your body/float CSS) ... */
+@keyframes moveBg {
+    from { transform: translateY(0); }
+    to { transform: translateY(100px); }
+}
+        
+        
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        #giant-cake { font-size: 100px; cursor: pointer; margin: 20px; transition: transform 0.1s; -webkit-tap-highlight-color: transparent; }
+        #giant-cake:active { transform: scale(1.2); }
+        
+        
+        .game-area { padding: 40px 0; background: white; border-top: 1px solid #eee; min-height: 450px; }
+        canvas { background: #fff; display: block; margin: 0 auto; border-radius: 10px; border: 1px solid #ddd; touch-action: none; }
+        #status { height: 30px; font-weight: bold; color: #ff8b94; margin: 15px; font-style: italic; }
+        
+       
+        #secret { display: none; padding: 30px 20px; animation: fadeIn 1s; }
+        .box { background: #fff; padding: 20px; border-radius: 15px; max-width: 340px; margin: 0 auto; border: 1px solid var(--pink); text-align: left; line-height: 1.6; }
+        .btn { background: var(--pink); color: white; border: none; padding: 15px 30px; border-radius: 30px; margin-top: 20px; cursor: pointer; font-weight: bold; font-size: 1rem; }
+        
+        #v-wrap { display: none; margin-top: 25px; }
+        .hd-link { display: block; margin-top: 15px; color: var(--pink); text-decoration: none; font-size: 0.85rem; font-weight: bold; opacity: 0.8; }
 
-    /* The "Pop-Out" Header Effect */
-    .hero h1 {
-        font-size: 2.8rem;
-        text-align: center;
-        color: white;
-        /* Layered shadow creates a 3D effect */
-        text-shadow: 
-            1px 1px 0px var(--dark-pink),
-            2px 2px 0px var(--dark-pink),
-            3px 3px 0px var(--dark-pink),
-            4px 4px 0px var(--dark-pink),
-            5px 5px 10px rgba(0,0,0,0.2);
-        letter-spacing: 2px;
-        transform: rotate(-2deg); /* Adds a playful vibe */
-        margin-bottom: 10px;
-    }
-
-    /* Making the game stats and sub-text pop */
-    #stats, #status {
-        text-shadow: 1px 1px 0px #fff;
-        filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.1));
-    }
-
-    /* Enhancing the Message Box to "Lift" off the screen */
-    .box { 
-        background: rgba(255, 255, 255, 0.95); 
-        padding: 25px; 
-        border-radius: 20px; 
-        max-width: 360px; 
-        margin: 0 auto; 
-        /* Double border/shadow for depth */
-        border: 3px solid var(--pink);
-        box-shadow: 0px 10px 25px rgba(255, 183, 178, 0.4), 10px 10px 0px var(--cream);
-        text-align: left; 
-        line-height: 1.7; 
-        position: relative;
-    }
-
-    /* Adding a "Sticker" feel to the buttons */
-    .btn { 
-        background: var(--dark-pink); 
-        color: white; 
-        border: none; 
-        padding: 15px 30px; 
-        border-radius: 15px; 
-        cursor: pointer; 
-        font-weight: bold; 
-        font-size: 1.1rem;
-        box-shadow: 0px 4px 0px #d66d75; /* Bottom shadow for thickness */
-        transition: all 0.1s;
-    }
-
-    .btn:active {
-        transform: translateY(3px);
-        box-shadow: 0px 1px 0px #d66d75;
-    }
-
-    /* Smooth pulse for the cake to make it "pop" visually */
-    #giant-cake {
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); }
-        100% { transform: scale(1); }
-    }
-</style>
-
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+    </style>
 </head>
 <body>
 
@@ -120,7 +77,6 @@
             <a href="https://drive.google.com/your-link" target="_blank" class="hd-link">✨ Aree vo site pe size limit hai.. to in case you wanna download in better quality ✨</a>
         </div>
     </div>     <script>
-        document.body.classList.add("locked");
         // Variables
         const msg = "Hello Isha...\n\nBhaiiiiiii soooooo much to talk to you about mannnnnnnnnnn.... pehle to Happy vala birthday madam ji aapko... khooooooob jiyo aur mauj karte raho... Achha first things first bhaiiiiiii you're soooo beautiful 😍... The most beautiful person on Earth you are Isha.. you are miss perfect.. sometimes I get jealous of you.. Koi itna achha itna perfect kese ho sakta hai... Honestly Isha you're the best.. you are Smart, you are intelligent, you are beautiful, itna talent late kaha se ho? You know a lot of thw times you give me inspiration.. The way you treat people around you.. The way you're calm(appear calm I know that even my baddie sometimes feels a bit sad and stressed) but it gives me motivation to be better... I am sure it gives motivation to a lot of people around you.. But what about you? How do you feel Isha? What's going inside your head? How does Isha actually handel everything? Does she feel sad sometimes? Is she scared often? If yes what is she scared of? Does she wanna giveup at times and move to the mountains (Bhai agar ye wala yes hai to mein bhi +1) Qhat keeps her calm? What keeps her going (Mene galti se going to gooning likh diya tha 😂😂)? I know 100% people around her take motivation from her but who does she take motivation from(it's not like I am trying to change my motivation... I'll always be looking at you and learning things from you cause even in your worst you're the best girl)? Does Isha pandey sometimes feels alone? Does she sometimes look back and think what if she could change things? Today is your day Isha... I know it's  not much but I would like you to answer these questions... not to me not to anyone but yourself? Bhaii mene jada sawal krdiye? ia it overwhelming? Is isha ever overwhelmed by any task(as far as I know yes she is but she's she doesn't know she's stronger than any task and can easily tackle any task). Does Isha know that she's perfect? I don't lnow the answers to any of these questions... but I wanna assure you Isha that there's nothing you cannot achieve.. There's nothing that can break you... you are never alone(I am always here bolna cheesy hoga kya?). Just know that no matter the doubts you face the criticism you face the names they call you the acolding you get the eyes they show you the looks they give you they try to scare you tease you make you feel low make you doubt yourself make you feel like you're not enough... never believe any of that don't even question yourself ever.. Just know my baddie is never wrong... she's always right she's always correct.. Isha never doubt yourself.. never feel alone.. never question your actions.. Galti hui to? koi baat nahi sudhaar lenge na.. akele nahi sudhaar payi to? To mein kyu hu yaha(mtlb abhi mahi hu vaha pr yahi hu aapke paas kabhi nahi jaunga kahi nahi jaunga😉) Bhyii sabko Isha suooort karegi to usko kaun karega? \n Mein karunga na ladliii.. you're feeling sad you wanna shout at someone call me and shout at me... you're feeling down you wanna hit someone maar do mujhe... You feel you're  doibting yourself I'll boost you.. galat bhi decision le rahi jogi tab bhi full support.... kyu kya hogya ek galti krdi to koi na sudhaar lenge na(vese bhi Isha labhi galat nahi hoti💅) Bas aap khush raho.. Yu hi muskurate raho... The world's prettiest smile hehe prtty potato(joking okay you have the most beautiful smile... aapke aage to sare heroine fail hai madam ji) your one smile makes my day it's like a beautiful ray of sunshine in a gloomy day... one ray and everyone becomes hopeful everyone feels joyous... one smile and the whole room lights up... keep that beautiful smile always.. But what about Sad Isha? Sad Isha is the best person she's a little mean but it's only beause she doesn't want to spread her sadness she's a little introvert she likes to stay by herself so she can figure things cause she's strong and she can handel things.. and if she feels she can't do it to hum kya hi kar payenge us kaam ko agar vo nahi kar payegi to.. lekin help to pkka karenge uski.. Sad Isha is like a the most precious diamond... cause she's tough on the inside but beautiful on the outside... \n Angry Isha? Bhaiii maja aata hai angry Isha ke sath... no filter at all... lol abe ja na tu saleee teriii saaleee 😂😂 she's soo much fun.. aur agar jara gussa hi na aaye to smiling Isha thak nahi jayegi.. akhir angry Isha to sad Isha aur Smiling Isha ko balance out bhi to krna hai... She's looks feirce like a fire but it's only when you get closer to her you realize she can provide warmth.. Angry Isha might sound selfish but she's the one who cares the most... even though she'll shout at you and face waya feom you.. she's the one who cares about you the most. Miss angry Isha \n And Playful Isha? bhai ye hhi koi sawal hai playful Isha ke lye bas ek baat mast aadmi.. mast baketi karo mauj kato aur khush raho badiya aadmi ho tum \n Par koi to Isha hogi jo achhi nahi hai? Hmmmmmmmmmmmm you are a good question my friend but a bas question... Even no Isha is the best feeling.. When Isha you you have the most beautiful time of your life... No Isha you have her memories most beautiful time of your life... Win Win.... \n But then which Isha is the best? Hmmm tough question.. Diplomatic answer😈 Every Isha is the best cause alllllll these Isha together make the mooooooooooooooooooooooooooost beautiful girl in the world... Isha Pandey \n One task for you... I know you are feeling lots of emotions... down there's a space just type in alllllllllll your thoughts all of them don't spare any(I will read😈 hehe no I won't read I mean I can't read... not that I can't read only I'll just not read your emptions... it's not like I don't wanna read but in case you wanna keep them a secret 🤐( abhi pta chala ye secret ka empji hai lol😂😂) just type down alll your thoughts and maybe the answers to those questions? \n in any case Isha pandey be happy always.\n Yours Truly~";
         let skipTyping = false; 
@@ -239,26 +195,23 @@ function message(s) {
         }
 
         function startExperience(el) {
-    // unlock scrolling
-    document.body.classList.remove("locked");
-
     // cake animation
     el.innerText = '🥳';
     setTimeout(() => el.innerText = '🎂', 1000);
 
-    // scroll to game
+    // scroll down automatically
     window.scrollTo({
         top: window.innerHeight,
         behavior: 'smooth'
     });
 
-    // start game
+    // start game immediately (no need to wait for scroll detection)
     if (!gameStarted) {
         gameStarted = true;
         draw();
         triggerSpawn();
     }
-        }
+}
 
 
         
@@ -272,64 +225,6 @@ function message(s) {
                 document.getElementById('save-status').innerText = "Saved locally.";
             });
         }
-
-const messages = [
-    "You go girl",
-    "Stay happy always",
-    "Keep smiling",
-    "you are the best",
-    "Kawaiiii",
-    "Trust yourself"
-];
-
-const emojis = ["🎈","🎂","🎉","🌸","🎁","✨"];
-
-function createFloating() {
-    const el = document.createElement("div");
-    el.className = "float";
-
-    // content
-    if (Math.random() > 0.8) {
-        el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        el.style.fontSize = (20 + Math.random() * 20) + "px";
-    } else {
-        el.innerText = messages[Math.floor(Math.random() * messages.length)];
-        el.style.fontSize = "14px";
-    }
-
-    // RANDOM START POSITION (anywhere on screen)
-    const startX = Math.random() * window.innerWidth;
-    const startY = Math.random() * window.innerHeight;
-
-    // RANDOM END POSITION (move somewhere else)
-    const endX = startX + (Math.random() - 0.5) * 300;
-    const endY = startY - (Math.random() * 400 + 100);
-
-    el.style.setProperty("--startX", startX + "px");
-    el.style.setProperty("--startY", startY + "px");
-    el.style.setProperty("--endX", endX + "px");
-    el.style.setProperty("--endY", endY + "px");
-
-    // speed (slow + smooth)
-    const duration = 25 + Math.random() * 15;
-    el.style.animationDuration = duration + "s";
-    el.style.animationTimingFunction = "ease-in-out";
-
-    document.getElementById("bg-float").appendChild(el);
-
-    setTimeout(() => el.remove(), duration * 1000);
-}
-
-window.onload = () => {
-    // instant burst (no delay at all)
-    for (let i = 0; i < 15; i++) {
-        createFloating();
-    }
-
-    // continuous flow
-    setInterval(createFloating, 900);
-};
-        
     </script>           
 </body>
 </html>
