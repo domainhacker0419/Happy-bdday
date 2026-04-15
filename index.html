@@ -106,14 +106,14 @@
 
     <div class="game-area">
         <div id="stats" style="font-weight:bold; color:var(--pink);">Treats Collected: 0</div>
-        <div id="status">Let's play a game, catch 5 treats to unlock a surprise 😉</div>
+        <div id="status">I remember you had made like that small code for me back then so just though to make something engaging..... Umm vo clouds are supposed to be like the bad stuff lekin vo nai code kia cause Isha doesn't lose</div>
         <canvas id="canvas"></canvas>
     </div>
 
             <div id="secret" style="display: none;">
         <div class="box">
             <p id="note" style="margin-bottom: 5px;"></p>
-            <button id="skip-btn" style="display:none; background:none; border:none; color:var(--pink); cursor:pointer; font-size:0.8rem; text-decoration:underline; margin-bottom:15px; padding:0; text-align:left;">Jaldi bol Kal subhe.....</button>
+            <button id="skipbuttock" style="display:none; background:none; border:none; color:var(--pink); cursor:pointer; font-size:0.8rem; text-decoration:underline; margin-bottom:15px; padding:0; text-align:left;">Jaldi bol Kal subhe.....</button>
             
             <div id="notepad-area" style="display:none; margin-top:20px; border-top: 1px dotted var(--pink); padding-top: 15px;">
                 <p style="font-size: 0.85rem; font-style: italic; opacity: 0.8;">This space is just for you. Write whatever you're feeling...</p>
@@ -198,7 +198,7 @@
             document.getElementById('status').innerText = "Neeche to Dekho...";
             document.getElementById('secret').style.display = 'block';
             
-            const skip = document.getElementById('skip-btn');
+            const skip = document.getElementById('skipbuttock');
             if (skip) {
                 skip.style.display = 'inline-block';
                 skip.onclick = function() { 
@@ -211,7 +211,7 @@
         
         function typeWriter(t, i) {
             const noteEl = document.getElementById("note");
-            const skip = document.getElementById('skip-btn');
+            const skip = document.getElementById('skipbuttock');
 
             if (skipppress === true) {
                 noteEl.innerHTML = t.replace(/\n/g, '<br>');
